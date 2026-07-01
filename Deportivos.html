@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOCIDAD SUPREMA — Los Mejores Carros Deportivos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/Deportivos.css">
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<!-- TOP STRIP -->
+<div class="top-strip">
+  <span class="strip-inner">🏎️ VELOCIDAD SUPREMA — LOS MEJORES CARROS DEPORTIVOS DEL MUNDO — BUGATTI · FERRARI · LAMBORGHINI · SUPRA · McLAREN · PORSCHE 🏁 &nbsp;&nbsp;&nbsp; 🏎️ VELOCIDAD SUPREMA — LOS MEJORES CARROS DEPORTIVOS DEL MUNDO 🏁</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ VELOCIDAD SUPREMA</div>
+  <div class="nav-links">
+    <a href="#que-son">¿Qué son?</a>
+    <a href="#historia">Historia</a>
+    <a href="#tipos">Tipos</a>
+    <a href="#garage">Los Mejores</a>
+    <a href="#datos">Datos</a>
+    <a href="#final">Final</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="hero">
+  <div class="halftone"></div>
+  <span class="kanji" style="font-size:9rem;top:8%;left:3%;transform:rotate(-12deg)">速</span>
+  <span class="kanji" style="font-size:7rem;top:18%;right:5%;transform:rotate(10deg)">力</span>
+  <span class="kanji" style="font-size:8rem;bottom:20%;left:7%;transform:rotate(6deg)">夢</span>
+  <span class="kanji" style="font-size:6rem;bottom:28%;right:4%;transform:rotate(-9deg)">炎</span>
+
+  <!-- Blueprint grid overlay -->
+  <div class="blueprint-lines"></div>
+
+  <!-- Hero car SVG watermark -->
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0.04">
+    <svg width="700" height="220" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M80,160 L110,160 Q120,110 160,90 L260,70 L380,65 L480,68 Q540,72 580,90 L620,110 L640,140 L650,160 L80,160Z" fill="#00aaff"/>
+      <path d="M240,90 L270,70 L390,65 L420,72 L430,95 L420,100 L250,98Z" fill="rgba(150,220,255,0.5)"/>
+      <circle cx="170" cy="168" r="42" fill="#0044cc" stroke="#00aaff" stroke-width="4"/>
+      <circle cx="170" cy="168" r="22" fill="#001133"/>
+      <circle cx="560" cy="168" r="42" fill="#0044cc" stroke="#00aaff" stroke-width="4"/>
+      <circle cx="560" cy="168" r="22" fill="#001133"/>
+    </svg>
+  </div>
+
+  <div style="position:relative;z-index:2;text-align:center;">
+    <div class="hero-badge">🏎️ Enciclopedia Mecánica Suprema 🏁</div>
+    <h1 class="hero-title t3d-blue">
+      <span style="color:#fff">VELOCIDAD</span><br>
+      <span style="color:var(--blue)">SUPREMA</span>
+    </h1>
+    <p class="hero-sub">
+      Como los héroes más poderosos del anime,
+      <strong>los carros deportivos representan el límite de lo que el ser humano puede crear</strong>.
+      Conoce su historia, tecnología y las máquinas que definen una era.
+    </p>
+    <a href="#que-son" class="btn-cta">Iniciar la misión ⚡</a>
+  </div>
+
+  <div class="scroll-arr">
+    <span>SCROLL</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ ¿QUÉ SON? — MHA ══════════════════════════════ -->
+<section id="que-son">
+  <div class="halftone"></div>
+  <div class="blueprint-lines"></div>
+  <div style="position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Bangers',cursive;font-size:14rem;opacity:0.025;pointer-events:none;letter-spacing:-5px">MHA</div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--green)">MY HERO ACADEMIA · CAPÍTULO 01</p>
+      <h2 class="sec-title t3d-green" style="color:var(--green)">¿QUÉ ES UN CARRO<br>DEPORTIVO?</h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+    </div>
+
+    <!-- SVG car blueprint — Deku themed (green) -->
+    <div style="display:flex;justify-content:center;margin:1.5rem 0;" class="reveal">
+      <svg width="500" height="160" viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 14px #00ff88);max-width:100%">
+        <!-- Body -->
+        <path d="M55,115 L75,115 Q82,80 110,68 L190,52 L290,48 L370,52 Q410,60 430,78 L445,100 L450,115 L55,115Z" fill="none" stroke="#00ff88" stroke-width="2.5"/>
+        <!-- Roof/cockpit -->
+        <path d="M185,72 L210,52 L310,48 L340,55 L355,72 L340,78 L200,76Z" fill="rgba(0,255,136,0.15)" stroke="#00ff88" stroke-width="1.5"/>
+        <!-- Wheels -->
+        <circle cx="130" cy="120" r="32" fill="none" stroke="#00ff88" stroke-width="2"/>
+        <circle cx="130" cy="120" r="16" fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <circle cx="130" cy="120" r="4" fill="#00ff88"/>
+        <circle cx="370" cy="120" r="32" fill="none" stroke="#00ff88" stroke-width="2"/>
+        <circle cx="370" cy="120" r="16" fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <circle cx="370" cy="120" r="4" fill="#00ff88"/>
+        <!-- Front aero -->
+        <path d="M55,115 L35,122 L40,130 L75,130" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+        <!-- Rear spoiler -->
+        <path d="M450,115 L465,108 L470,118 L450,122" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+        <!-- Dimension lines -->
+        <line x1="55" y1="145" x2="450" y2="145" stroke="#00ff88" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 3"/>
+        <line x1="55" y1="140" x2="55" y2="150" stroke="#00ff88" stroke-width="1" opacity="0.4"/>
+        <line x1="450" y1="140" x2="450" y2="150" stroke="#00ff88" stroke-width="1" opacity="0.4"/>
+        <text x="252" y="158" text-anchor="middle" font-size="9" fill="#00ff88" opacity="0.5" font-family="Orbitron,sans-serif">4.5m — 5.0m LONGITUD</text>
+        <!-- Aero arrows -->
+        <path d="M80,45 L100,38 L98,45 L110,38" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+        <path d="M380,42 L400,35 L398,42 L410,35" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+        <text x="145" y="30" font-size="8" fill="#00ff88" opacity="0.45" font-family="Orbitron,sans-serif">FLUJO AERODINÁMICO</text>
+      </svg>
+    </div>
+
+    <div class="quote reveal" style="border-color:var(--green);background:rgba(0,255,136,0.04);color:var(--green)">
+      <em>"Un héroe no nace con poder — está diseñado, forjado y optimizado para superar cualquier límite."</em>
+      <small>— Inspirado en Izuku Midoriya · My Hero Academia</small>
+    </div>
+
+    <div class="g2">
+      <div class="card mp reveal glow-g" data-n="01" style="border-color:rgba(0,255,136,0.12)">
+        <span class="ib">🏎️</span>
+        <h3 style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--green);margin-bottom:1rem">DEFINICIÓN</h3>
+        <p style="line-height:1.82;opacity:0.85">
+          Un <strong style="color:var(--green)">carro deportivo</strong> es un vehículo de altas prestaciones diseñado principalmente para la
+          velocidad, la aceleración y el manejo excepcional, sacrificando comodidad o espacio por
+          <strong>rendimiento puro</strong>.
+        </p>
+        <p style="line-height:1.82;opacity:0.85;margin-top:1rem">
+          Se caracterizan por motores de alta potencia, <strong style="color:var(--green)">aerodinámica activa</strong>, materiales
+          ultraligeros como fibra de carbono y sistemas de suspensión avanzada que los diferencian
+          radicalmente de un automóvil convencional.
+        </p>
+      </div>
+      <div class="card mp reveal glow-g" data-n="02" style="border-color:rgba(0,255,136,0.12)">
+        <span class="ib">⚙️</span>
+        <h3 style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--green);margin-bottom:1rem">¿QUÉ LOS HACE ESPECIALES?</h3>
+        <ul style="line-height:2.1;opacity:0.83;padding-left:1.2rem">
+          <li>Relación potencia/peso extremadamente alta</li>
+          <li>Aceleración 0–100 km/h en menos de 3 segundos</li>
+          <li>Velocidades máximas superiores a 300 km/h</li>
+          <li>Aerodinámica activa con alerón y difusores</li>
+          <li>Tracción trasera o AWD con diferencial activo</li>
+          <li>Chasis de fibra de carbono o aluminio</li>
+          <li>Frenado por cerámicas de alto rendimiento</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:1.5rem">
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="ib">🔥</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">POTENCIA</h4>
+        <p style="font-size:0.87rem;opacity:0.78;line-height:1.65">Desde 400 hasta más de 1,600 CV en los hipercars modernos. Una potencia que desafía la física.</p>
+      </div>
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="ib">🛞</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">MANEJO</h4>
+        <p style="font-size:0.87rem;opacity:0.78;line-height:1.65">Suspensión activa, dirección asistida electrónica y control vectorial del par convierten cada curva en arte.</p>
+      </div>
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="ib">💎</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">DISEÑO</h4>
+        <p style="font-size:0.87rem;opacity:0.78;line-height:1.65">Líneas que sirven un propósito funcional: cada curva desvía el aire, genera downforce o enfría los frenos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ HISTORIA — DRAGON BALL ══════════════════════════════ -->
+<section id="historia">
+  <div class="halftone"></div>
+  <div class="speed-bg"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--orange)">DRAGON BALL · SAGA DE LA EVOLUCIÓN</p>
+      <h2 class="sec-title t3d-orange" style="color:var(--orange)">HISTORIA<br>DEL AUTOMÓVIL</h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--orange),transparent)"></div>
+    </div>
+
+    <!-- Goku-style SVG — car evolution -->
+    <div style="display:flex;justify-content:center;margin:1.5rem 0;" class="reveal">
+      <svg width="460" height="155" viewBox="0 0 460 155" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 14px #ff6600);max-width:100%">
+        <!-- Classic car (old style) -->
+        <g opacity="0.5">
+          <path d="M10,105 L20,105 Q22,85 35,78 L70,70 L110,68 Q120,70 125,80 L130,105Z" fill="none" stroke="#ff6600" stroke-width="1.5"/>
+          <circle cx="40" cy="110" r="18" fill="none" stroke="#ff6600" stroke-width="1.5"/>
+          <circle cx="110" cy="110" r="18" fill="none" stroke="#ff6600" stroke-width="1.5"/>
+          <text x="70" y="140" text-anchor="middle" font-size="7" fill="#ff6600" font-family="Orbitron,sans-serif">1886</text>
+        </g>
+        <!-- Evolution arrow -->
+        <path d="M140,105 L165,95 L158,105 L165,115Z" fill="#ff8800"/>
+        <!-- Modern supercar -->
+        <g opacity="0.75">
+          <path d="M175,110 L190,110 Q195,85 215,75 L255,65 L295,63 L325,67 Q345,73 355,88 L360,105 L360,110Z" fill="none" stroke="#ff8800" stroke-width="2"/>
+          <path d="M250,75 L265,63 L300,62 L315,68 L318,78 L308,82 L255,80Z" fill="rgba(255,136,0,0.18)" stroke="#ff8800" stroke-width="1.5"/>
+          <circle cx="212" cy="116" r="25" fill="none" stroke="#ff8800" stroke-width="2"/>
+          <circle cx="325" cy="116" r="25" fill="none" stroke="#ff8800" stroke-width="2"/>
+          <text x="268" y="148" text-anchor="middle" font-size="7" fill="#ff8800" font-family="Orbitron,sans-serif">1990</text>
+        </g>
+        <!-- Evolution arrow -->
+        <path d="M368,100 L393,90 L386,100 L393,110Z" fill="#ffaa00"/>
+        <!-- Hypercar -->
+        <g>
+          <path d="M400,108 L410,108 Q413,85 425,74 L440,66 L455,63 L460,66 Q458,74 450,80 L450,108Z" fill="none" stroke="#ffcc00" stroke-width="2.5"/>
+          <circle cx="420" cy="114" r="22" fill="none" stroke="#ffcc00" stroke-width="2"/>
+          <text x="435" y="145" text-anchor="middle" font-size="7" fill="#ffcc00" font-family="Orbitron,sans-serif">2024</text>
+        </g>
+        <!-- Power aura -->
+        <ellipse cx="430" cy="100" r="40" fill="none" stroke="#ffcc00" stroke-width="1" opacity="0.2" stroke-dasharray="5 4"/>
+      </svg>
+    </div>
+
+    <div class="quote reveal" style="border-color:var(--orange);background:rgba(255,102,0,0.05);color:var(--orange)">
+      <em>"Cada nueva saga trae un nivel de poder inimaginable. Los carros deportivos también tienen su propia saga de evolución."</em>
+      <small>— Inspirado en Son Goku · Dragon Ball</small>
+    </div>
+
+    <div class="g2">
+      <div class="reveal">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--blue)"></div>
+            <div class="tl-year" style="color:var(--blue)">1886</div>
+            <h4 style="color:#aaddff">EL NACIMIENTO</h4>
+            <p>Karl Benz presenta el Benz Patent-Motorwagen, considerado el primer automóvil de la historia. Motor de un cilindro, 0.75 CV. La era de la velocidad comienza.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#44aaff"></div>
+            <div class="tl-year" style="color:#44aaff">1910–1930</div>
+            <h4 style="color:#44aaff">LAS PRIMERAS CARRERAS</h4>
+            <p>Las carreras Gran Prix europeas impulsan el desarrollo técnico. Alfa Romeo, Bentley y Mercedes dominan pistas de tierra y asfalto primitivo.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--orange)"></div>
+            <div class="tl-year" style="color:var(--orange)">1947</div>
+            <h4 style="color:var(--orange)">NACE FERRARI</h4>
+            <p>Enzo Ferrari funda Scuderia Ferrari en Maranello, Italia. El Cavallino Rampante (caballo negro) se convierte en el símbolo del auto deportivo de lujo.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--lambo)"></div>
+            <div class="tl-year" style="color:var(--lambo)">1963</div>
+            <h4 style="color:var(--lambo)">LAMBORGHINI DESAFÍA</h4>
+            <p>Ferruccio Lamborghini, molesto con Enzo Ferrari, funda Automobili Lamborghini. El Miura (1966) redefine lo que un superdeportivo puede ser.</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#dd1111"></div>
+            <div class="tl-year" style="color:#dd1111">1984</div>
+            <h4 style="color:#dd1111">LA ERA JDM</h4>
+            <p>Japón irrumpe con el Toyota Supra, Nissan GT-R y Honda NSX. Los autos japoneses demuestran que la precisión ingeniería puede superar el lujo europeo.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#0044cc"></div>
+            <div class="tl-year" style="color:#0044cc">1991</div>
+            <h4 style="color:#0044cc">BUGATTI RENACE</h4>
+            <p>Volkswagen resucita Bugatti. El EB110 anuncia el regreso de la marca francesa. En 2005, el Veyron rompe la barrera de los 400 km/h.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--teal)"></div>
+            <div class="tl-year" style="color:var(--teal)">2013</div>
+            <h4 style="color:var(--teal)">ERA HÍBRIDA</h4>
+            <p>LaFerrari, McLaren P1 y Porsche 918 Spyder lanzan la "Trinidad Sagrada" de los hipercars híbridos. +900 CV combinando motor y electricidad.</p>
+          </div>
+          <div class="tl-item" style="margin-bottom:0">
+            <div class="tl-dot" style="background:var(--gold)"></div>
+            <div class="tl-year" style="color:var(--gold)">HOY</div>
+            <h4 style="color:var(--gold)">HYPERCARS ELÉCTRICOS</h4>
+            <p>Rimac Nevera (1,914 CV eléctricos), Pininfarina Battista y Bugatti Tourbillon empujan los límites: 0–100 en 1.8 segundos. El futuro ya llegó.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ TIPOS — BLACK CLOVER ══════════════════════════════ -->
+<section id="tipos">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--gold)">BLACK CLOVER · GRIMORIO DEL MOTOR</p>
+      <h2 class="sec-title t3d-gold" style="color:var(--gold)">TIPOS DE<br>CARROS DEPORTIVOS</h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+    </div>
+
+    <!-- Asta-style SVG -->
+    <div style="display:flex;justify-content:center;margin:1.5rem 0;" class="reveal">
+      <svg width="460" height="150" viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 14px #ffd700);max-width:100%">
+        <!-- 5 different car silhouettes side by side -->
+        <!-- Roadster (open top) -->
+        <g transform="translate(0,0)">
+          <path d="M5,110 L18,110 Q22,88 35,80 L55,74 L75,72 Q82,74 85,82 L88,110Z" fill="none" stroke="#ffd700" stroke-width="2"/>
+          <path d="M48,80 L56,72 L68,72 L72,78 L68,82 L50,82Z" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1"/>
+          <circle cx="28" cy="115" r="18" fill="none" stroke="#ffd700" stroke-width="1.5"/>
+          <circle cx="73" cy="115" r="18" fill="none" stroke="#ffd700" stroke-width="1.5"/>
+          <text x="47" y="145" text-anchor="middle" font-size="7.5" fill="#ffd700" font-family="Orbitron,sans-serif">ROADSTER</text>
+        </g>
+        <!-- GT car -->
+        <g transform="translate(96,0)">
+          <path d="M5,110 L18,110 Q20,82 38,74 L72,66 L105,64 L118,68 Q128,76 130,92 L133,110Z" fill="none" stroke="#ffcc00" stroke-width="2"/>
+          <path d="M68,74 L80,64 L108,64 L118,70 L115,78 L70,78Z" fill="rgba(255,204,0,0.2)" stroke="#ffcc00" stroke-width="1"/>
+          <circle cx="35" cy="115" r="20" fill="none" stroke="#ffcc00" stroke-width="1.5"/>
+          <circle cx="112" cy="115" r="20" fill="none" stroke="#ffcc00" stroke-width="1.5"/>
+          <text x="69" y="146" text-anchor="middle" font-size="7.5" fill="#ffcc00" font-family="Orbitron,sans-serif">GRAN TURISMO</text>
+        </g>
+        <!-- Supercar -->
+        <g transform="translate(240,0)">
+          <path d="M5,108 L15,108 Q18,80 38,70 L70,60 L105,58 L120,62 Q136,70 140,86 L143,108Z" fill="none" stroke="#ffdd44" stroke-width="2.5"/>
+          <path d="M65,68 L80,58 L108,58 L118,65 L115,74 L67,74Z" fill="rgba(255,221,68,0.2)" stroke="#ffdd44" stroke-width="1.5"/>
+          <circle cx="35" cy="114" r="22" fill="none" stroke="#ffdd44" stroke-width="2"/>
+          <circle cx="115" cy="114" r="22" fill="none" stroke="#ffdd44" stroke-width="2"/>
+          <!-- Spoiler -->
+          <path d="M140,86 L152,78 L155,88 L148,92" fill="none" stroke="#ffdd44" stroke-width="1.5"/>
+          <text x="74" y="146" text-anchor="middle" font-size="7.5" fill="#ffdd44" font-family="Orbitron,sans-serif">SUPERCAR</text>
+        </g>
+        <!-- Hypercar label -->
+        <g transform="translate(395,20)">
+          <ellipse cx="32" cy="55" rx="35" ry="48" fill="none" stroke="#fff" stroke-width="1.2" opacity="0.3" stroke-dasharray="5 4"/>
+          <text x="32" y="62" text-anchor="middle" font-size="8" fill="#fff" opacity="0.5" font-family="Orbitron,sans-serif">HYPER</text>
+          <text x="32" y="73" text-anchor="middle" font-size="8" fill="#fff" opacity="0.5" font-family="Orbitron,sans-serif">CAR</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="quote reveal" style="border-color:var(--gold);background:rgba(255,215,0,0.05);color:var(--gold)">
+      <em>"No importa si naciste sin magia — con el grimorio correcto y el trabajo duro, cualquier camino está abierto."</em>
+      <small>— Inspirado en Asta · Black Clover</small>
+    </div>
+
+    <div class="g3 reveal">
+      <div class="tipo-card" style="border-color:rgba(255,215,0,0.2)">
+        <span class="ti">🏁</span>
+        <h3 style="color:var(--gold)">ROADSTER</h3>
+        <p>Deportivo de dos asientos sin techo (o con techo plegable). Diseñado para el placer de conducción puro. Ejemplo: Mazda MX-5, Ferrari 458 Spider.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--gold);border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.07)">2 asientos</span>
+          <span class="tag" style="color:var(--gold);border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.07)">Sin techo</span>
+          <span class="tag" style="color:var(--gold);border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.07)">Open-air</span>
+        </div>
+      </div>
+      <div class="tipo-card" style="border-color:rgba(0,170,255,0.2)">
+        <span class="ti">✈️</span>
+        <h3 style="color:var(--blue)">GRAN TURISMO (GT)</h3>
+        <p>Alto rendimiento con cierto nivel de confort para viajes largos. Potencia y lujo en equilibrio. Ejemplo: Ferrari GTC4 Lusso, Bentley Continental GT.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--blue);border-color:rgba(0,170,255,0.4);background:rgba(0,170,255,0.07)">2+2 asientos</span>
+          <span class="tag" style="color:var(--blue);border-color:rgba(0,170,255,0.4);background:rgba(0,170,255,0.07)">Lujo</span>
+          <span class="tag" style="color:var(--blue);border-color:rgba(0,170,255,0.4);background:rgba(0,170,255,0.07)">Distancia</span>
+        </div>
+      </div>
+      <div class="tipo-card" style="border-color:rgba(0,255,136,0.2)">
+        <span class="ti">🔥</span>
+        <h3 style="color:var(--green)">MUSCLE CAR</h3>
+        <p>Motor V8 de gran cilindrada en un cuerpo musculoso americano. Potencia bruta sobre la precisión. Ejemplo: Dodge Challenger Hellcat, Ford Mustang Shelby GT500.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--green);border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.07)">V8</span>
+          <span class="tag" style="color:var(--green);border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.07)">Tracción trasera</span>
+          <span class="tag" style="color:var(--green);border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.07)">USA</span>
+        </div>
+      </div>
+      <div class="tipo-card" style="border-color:rgba(255,102,0,0.2)">
+        <span class="ti">🌪️</span>
+        <h3 style="color:var(--orange)">SUPERCAR</h3>
+        <p>El nivel élite: diseño extremo, aerodinámcia activa y más de 600 CV. Son el punto de referencia de la industria. Ejemplo: Lamborghini Huracán, Ferrari F8.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.07)">+600 CV</span>
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.07)">Mid-engine</span>
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.07)">Carbono</span>
+        </div>
+      </div>
+      <div class="tipo-card" style="border-color:rgba(170,68,255,0.2)">
+        <span class="ti">⚡</span>
+        <h3 style="color:var(--purple)">HYPERCAR</h3>
+        <p>Más allá del supercar: producción limitadísima, tecnología de F1, +1,000 CV. Cada unidad cuesta millones. Ejemplo: Bugatti Chiron, Koenigsegg Jesko.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.07)">+1000 CV</span>
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.07)">Limitado</span>
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.07)">F1-tech</span>
+        </div>
+      </div>
+      <div class="tipo-card" style="border-color:rgba(0,204,170,0.2)">
+        <span class="ti">🌿⚡</span>
+        <h3 style="color:var(--teal)">ELÉCTRICO</h3>
+        <p>El futuro del deporte: par instantáneo, aceleración brutal, cero emisiones. Ejemplo: Rimac Nevera (1,914 CV), Tesla Model S Plaid (0–100 en 2.1s).</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--teal);border-color:rgba(0,204,170,0.4);background:rgba(0,204,170,0.07)">Par instant.</span>
+          <span class="tag" style="color:var(--teal);border-color:rgba(0,204,170,0.4);background:rgba(0,204,170,0.07)">0 emisiones</span>
+          <span class="tag" style="color:var(--teal);border-color:rgba(0,204,170,0.4);background:rgba(0,204,170,0.07)">Futuro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ LOS MEJORES — KNY ══════════════════════════════ -->
+<section id="garage">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:#ff4466">KIMETSU NO YAIBA · RESPIRACIÓN DE LA VELOCIDAD</p>
+      <h2 class="sec-title t3d-red" style="color:#cc0022">LOS MEJORES<br>CARROS DEL MUNDO</h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,#cc0022,transparent)"></div>
+    </div>
+
+    <!-- Tanjiro-style SVG -->
+    <div style="display:flex;justify-content:center;margin:1.5rem 0;" class="reveal">
+      <svg width="500" height="150" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 14px #cc0022);max-width:100%">
+        <!-- Bugatti Chiron style — very low, wide -->
+        <path d="M20,110 L35,110 Q40,80 62,68 L120,56 L200,52 L280,52 L340,56 Q380,64 400,82 L415,100 L420,110Z" fill="none" stroke="#cc0022" stroke-width="2.5"/>
+        <!-- Windshield -->
+        <path d="M155,72 L175,56 L260,52 L295,56 L305,68 L295,74 L160,76Z" fill="rgba(204,0,34,0.15)" stroke="#cc0022" stroke-width="1.5"/>
+        <!-- Air vents side -->
+        <path d="M75,85 L90,82 L90,90 L75,93Z" fill="rgba(204,0,34,0.3)" stroke="#cc0022" stroke-width="1"/>
+        <path d="M350,80 L365,77 L365,85 L350,88Z" fill="rgba(204,0,34,0.3)" stroke="#cc0022" stroke-width="1"/>
+        <!-- Front splitter -->
+        <path d="M20,110 L5,116 L8,124 L35,120" fill="none" stroke="#cc0022" stroke-width="1.5"/>
+        <!-- Rear diffuser + wing -->
+        <path d="M420,110 L435,104 L440,95 L435,110" fill="none" stroke="#cc0022" stroke-width="1.5"/>
+        <path d="M405,62 L430,54 L438,66 L420,70" fill="none" stroke="#ff4466" stroke-width="2"/>
+        <!-- Wheels -->
+        <circle cx="95" cy="116" r="30" fill="none" stroke="#cc0022" stroke-width="2"/>
+        <circle cx="95" cy="116" r="15" fill="none" stroke="#cc0022" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <circle cx="95" cy="116" r="4" fill="#cc0022"/>
+        <circle cx="355" cy="116" r="30" fill="none" stroke="#cc0022" stroke-width="2"/>
+        <circle cx="355" cy="116" r="15" fill="none" stroke="#cc0022" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <circle cx="355" cy="116" r="4" fill="#cc0022"/>
+        <!-- Speed lines -->
+        <line x1="0" y1="90" x2="18" y2="90" stroke="#ff4466" stroke-width="2" opacity="0.4"/>
+        <line x1="0" y1="98" x2="15" y2="98" stroke="#ff4466" stroke-width="1.5" opacity="0.3"/>
+        <line x1="0" y1="106" x2="12" y2="106" stroke="#ff4466" stroke-width="1" opacity="0.2"/>
+        <text x="220" y="148" text-anchor="middle" font-size="9" fill="#ff4466" opacity="0.5" font-family="Orbitron,sans-serif">BUGATTI CHIRON SUPER SPORT · 440 KM/H</text>
+      </svg>
+    </div>
+
+    <div class="quote reveal" style="border-color:#cc0022;background:rgba(204,0,34,0.05);color:#ff4466">
+      <em>"Las formas de respiración no son solo técnica — son el alma del guerrero hecha movimiento. Cada gran auto tiene su propia respiración."</em>
+      <small>— Inspirado en Tanjiro Kamado · Kimetsu no Yaiba</small>
+    </div>
+
+    <div class="g3 reveal">
+      <!-- Bugatti -->
+      <div class="car-card glow-b" style="border-color:rgba(0,68,204,0.35)">
+        <div class="car-brand">Bugatti</div>
+        <div class="car-name" style="color:#4488ff">CHIRON<br>SUPER SPORT</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <path d="M10,65 L20,65 Q24,44 40,36 L80,28 L140,25 L185,27 Q210,32 220,45 L225,62 L225,65Z" fill="none" stroke="#0044cc" stroke-width="2"/>
+          <path d="M95,38 L108,27 L148,25 L162,30 L160,38 L97,40Z" fill="rgba(0,68,204,0.2)" stroke="#4488ff" stroke-width="1.5"/>
+          <circle cx="52" cy="70" r="20" fill="none" stroke="#4488ff" stroke-width="2"/>
+          <circle cx="196" cy="70" r="20" fill="none" stroke="#4488ff" stroke-width="2"/>
+          <path d="M218,42 L228,36 L232,44 L225,48" fill="none" stroke="#4488ff" stroke-width="1.5"/>
+        </svg>
+        <div class="car-speed" style="color:#4488ff">440 km/h</div>
+        <p>Motor W16 de 8.0L, 1,600 CV. El auto de producción más rápido del mundo. Quad-turbo, AWD, transmisión DCT 7 velocidades.</p>
+        <span class="car-badge" style="background:rgba(0,68,204,0.3);border:1px solid #0044cc;color:#4488ff">🌬️ Respiración del Viento</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>440 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="100%" style="background:linear-gradient(90deg,#0044cc,#4488ff)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>POTENCIA</span><span>1,600 CV</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="98%" style="background:linear-gradient(90deg,#0044cc,#4488ff)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>0–100 km/h</span><span>2.4s</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="96%" style="background:linear-gradient(90deg,#0044cc,#4488ff)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ferrari -->
+      <div class="car-card glow-r" style="border-color:rgba(221,17,17,0.35)">
+        <div class="car-brand">Ferrari</div>
+        <div class="car-name" style="color:#ff4444">LaFERRARI</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <path d="M12,65 L22,65 Q26,42 48,34 L90,24 L150,21 L190,24 Q212,30 218,46 L222,65Z" fill="none" stroke="#dd1111" stroke-width="2"/>
+          <path d="M100,34 L118,22 L155,21 L168,27 L165,36 L102,37Z" fill="rgba(221,17,17,0.18)" stroke="#ff4444" stroke-width="1.5"/>
+          <circle cx="55" cy="70" r="20" fill="none" stroke="#ff4444" stroke-width="2"/>
+          <circle cx="195" cy="70" r="20" fill="none" stroke="#ff4444" stroke-width="2"/>
+          <path d="M220,48 L232,42 L235,50 L228,54" fill="none" stroke="#ff4444" stroke-width="1.5"/>
+        </svg>
+        <div class="car-speed" style="color:#ff4444">350 km/h</div>
+        <p>Híbrido V12 6.3L + motor eléctrico, 963 CV totales. Solo 499 unidades. La cúspide de la tecnología F1 llevada a la calle.</p>
+        <span class="car-badge" style="background:rgba(221,17,17,0.25);border:1px solid #dd1111;color:#ff4444">🔥 Respiración de las Llamas</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>350 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="85%" style="background:linear-gradient(90deg,#dd1111,#ff4444)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>POTENCIA</span><span>963 CV</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="72%" style="background:linear-gradient(90deg,#dd1111,#ff4444)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>0–100 km/h</span><span>2.9s</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="90%" style="background:linear-gradient(90deg,#dd1111,#ff4444)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lamborghini -->
+      <div class="car-card glow-d" style="border-color:rgba(255,204,0,0.35)">
+        <div class="car-brand">Lamborghini</div>
+        <div class="car-name" style="color:var(--lambo)">AVENTADOR<br>SVJ</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <!-- Lambo angular shape -->
+          <path d="M15,66 L22,66 L30,42 L60,28 L110,20 L160,18 L205,24 L228,38 L235,55 L232,66Z" fill="none" stroke="#ffcc00" stroke-width="2"/>
+          <path d="M108,28 L130,20 L165,18 L182,24 L178,34 L110,36Z" fill="rgba(255,204,0,0.18)" stroke="#ffcc00" stroke-width="1.5"/>
+          <!-- Angular Lambo lines -->
+          <line x1="60" y1="28" x2="50" y2="48" stroke="#ffcc00" stroke-width="1" opacity="0.5"/>
+          <line x1="205" y1="24" x2="218" y2="44" stroke="#ffcc00" stroke-width="1" opacity="0.5"/>
+          <circle cx="58" cy="71" r="20" fill="none" stroke="#ffcc00" stroke-width="2"/>
+          <circle cx="200" cy="71" r="20" fill="none" stroke="#ffcc00" stroke-width="2"/>
+          <!-- Big wing -->
+          <path d="M225,40 L248,30 L252,42 L235,48" fill="none" stroke="#ffcc00" stroke-width="2"/>
+        </svg>
+        <div class="car-speed" style="color:var(--lambo)">355 km/h</div>
+        <p>V12 de 6.5L naturally aspirated, 770 CV. Sin turbo, solo magia mecánica pura. El último V12 Lamborghini de tracción trasera.</p>
+        <span class="car-badge" style="background:rgba(255,204,0,0.2);border:1px solid #ffcc00;color:#ffcc00">⚡ Respiración del Rayo</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>355 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="86%" style="background:linear-gradient(90deg,#cc9900,#ffcc00)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>POTENCIA</span><span>770 CV</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="60%" style="background:linear-gradient(90deg,#cc9900,#ffcc00)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>0–100 km/h</span><span>2.8s</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="91%" style="background:linear-gradient(90deg,#cc9900,#ffcc00)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toyota Supra -->
+      <div class="car-card glow-o" style="border-color:rgba(255,102,0,0.3)">
+        <div class="car-brand">Toyota</div>
+        <div class="car-name" style="color:var(--orange)">SUPRA MK4<br>A80</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <!-- Supra rounded fastback -->
+          <path d="M18,66 L28,66 Q30,50 45,42 L85,32 L130,28 Q165,28 195,34 L220,46 L228,62 L225,66Z" fill="none" stroke="#ff6600" stroke-width="2"/>
+          <path d="M90,38 L110,28 L155,28 L170,34 L168,44 L92,46Z" fill="rgba(255,102,0,0.18)" stroke="#ff8800" stroke-width="1.5"/>
+          <!-- Round wheel arches -->
+          <circle cx="62" cy="70" r="21" fill="none" stroke="#ff6600" stroke-width="2"/>
+          <circle cx="62" cy="70" r="10" fill="none" stroke="#ff8800" stroke-width="1.5"/>
+          <circle cx="196" cy="70" r="21" fill="none" stroke="#ff6600" stroke-width="2"/>
+          <circle cx="196" cy="70" r="10" fill="none" stroke="#ff8800" stroke-width="1.5"/>
+        </svg>
+        <div class="car-speed" style="color:var(--orange)">285 km/h</div>
+        <p>2JZ-GTE inline-6 biturbo, 320 CV de fábrica (soporta +1,000 CV con tuning). El ícono JDM definitivo. La Biblia del tuning japonés.</p>
+        <span class="car-badge" style="background:rgba(255,102,0,0.2);border:1px solid #ff6600;color:#ff8800">🐉 Respiración del Dragón</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>285 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="68%" style="background:linear-gradient(90deg,#cc4400,#ff8800)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>POTENCIA</span><span>320 CV (stock)</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="28%" style="background:linear-gradient(90deg,#cc4400,#ff8800)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>TUNING POTENTIAL</span><span>∞</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="100%" style="background:linear-gradient(90deg,#cc4400,#ffcc00)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- McLaren -->
+      <div class="car-card" style="border-color:rgba(255,102,0,0.25)">
+        <div class="car-brand">McLaren</div>
+        <div class="car-name" style="color:#ff8844">P1 GTR</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <path d="M22,65 L30,65 Q33,44 52,34 L95,22 L148,18 L192,22 Q215,30 225,48 L230,65Z" fill="none" stroke="#ff8844" stroke-width="2"/>
+          <path d="M100,30 L120,18 L152,18 L165,24 L162,34 L102,35Z" fill="rgba(255,136,68,0.18)" stroke="#ff8844" stroke-width="1.5"/>
+          <circle cx="62" cy="70" r="20" fill="none" stroke="#ff8844" stroke-width="2"/>
+          <circle cx="198" cy="70" r="20" fill="none" stroke="#ff8844" stroke-width="2"/>
+          <path d="M228,48 L244,40 L248,50 L240,56" fill="none" stroke="#ff8844" stroke-width="2"/>
+        </svg>
+        <div class="car-speed" style="color:#ff8844">350 km/h</div>
+        <p>V8 biturbo 3.8L + motor eléctrico, 1,000 CV. Tecnología directa de F1 con KERS activo. Solo 45 unidades construidas en el mundo.</p>
+        <span class="car-badge" style="background:rgba(255,136,68,0.2);border:1px solid #ff8844;color:#ff8844">🌊 Respiración del Mar</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>350 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="85%" style="background:linear-gradient(90deg,#cc5500,#ff8844)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>POTENCIA</span><span>1,000 CV</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="75%" style="background:linear-gradient(90deg,#cc5500,#ff8844)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Porsche 911 -->
+      <div class="car-card glow-g" style="border-color:rgba(0,255,136,0.2)">
+        <div class="car-brand">Porsche</div>
+        <div class="car-name" style="color:var(--green)">911 GT3 RS</div>
+        <svg width="200" height="70" viewBox="0 0 260 85" style="margin:0.5rem auto;display:block">
+          <!-- Classic 911 rounded shape -->
+          <path d="M20,65 L30,65 Q32,48 45,40 L78,30 L130,25 Q168,26 200,34 L222,48 L226,65Z" fill="none" stroke="#00ff88" stroke-width="2"/>
+          <path d="M80,36 L95,26 L148,25 L162,32 L158,42 L82,43Z" fill="rgba(0,255,136,0.15)" stroke="#00ff88" stroke-width="1.5"/>
+          <!-- Classic round headlights -->
+          <ellipse cx="46" cy="50" rx="8" ry="6" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+          <circle cx="64" cy="68" r="21" fill="none" stroke="#00ff88" stroke-width="2"/>
+          <circle cx="198" cy="68" r="21" fill="none" stroke="#00ff88" stroke-width="2"/>
+          <!-- Wing -->
+          <path d="M200,38 L224,28 L230,40 L218,46" fill="none" stroke="#00ff88" stroke-width="2"/>
+        </svg>
+        <div class="car-speed" style="color:var(--green)">296 km/h</div>
+        <p>Flat-6 de 4.0L naturally aspirated, 525 CV. El auto que cualquier piloto elige para Nürburgring. Confiabilidad + rendimiento = Porsche.</p>
+        <span class="car-badge" style="background:rgba(0,255,136,0.15);border:1px solid #00ff88;color:#00ff88">🌿 Respiración del Bosque</span>
+        <div style="margin-top:1.2rem">
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>VELOCIDAD</span><span>296 km/h</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="70%" style="background:linear-gradient(90deg,#008844,#00ff88)"></div></div>
+          </div>
+          <div class="stat-bar-wrap">
+            <div class="stat-bar-label"><span>MANEJO</span><span>LEYENDA</span></div>
+            <div class="stat-bar"><div class="stat-fill" data-w="100%" style="background:linear-gradient(90deg,#008844,#00ff88)"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ DATOS ══════════════════════════════ -->
+<section id="datos">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label">ESTADÍSTICAS · DATOS TÉCNICOS</p>
+      <h2 class="sec-title">NÚMEROS<br><span style="color:var(--blue)">IMPOSIBLES</span></h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--blue),transparent)"></div>
+    </div>
+
+    <div class="g4 reveal">
+      <div class="stat-box glow-b">
+        <div class="stat-num" style="color:var(--blue)">440</div>
+        <div class="stat-lbl">km/h — velocidad máxima del Bugatti Chiron Super Sport 300+</div>
+      </div>
+      <div class="stat-box glow-r">
+        <div class="stat-num" style="color:#dd1111">1,914</div>
+        <div class="stat-lbl">CV del Rimac Nevera — el eléctrico más potente del mundo</div>
+      </div>
+      <div class="stat-box glow-o">
+        <div class="stat-num" style="color:var(--orange)">1.8s</div>
+        <div class="stat-lbl">aceleración 0–100 km/h del Rimac Nevera. Récord mundial.</div>
+      </div>
+      <div class="stat-box glow-d">
+        <div class="stat-num" style="color:var(--gold)">$4M</div>
+        <div class="stat-lbl">USD precio del Bugatti La Voiture Noire. Solo 1 unidad en el mundo.</div>
+      </div>
+    </div>
+
+    <div class="race-stripe"></div>
+
+    <!-- Características técnicas -->
+    <div class="reveal">
+      <h3 style="font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:var(--gold);margin-bottom:2rem">⚙️ TECNOLOGÍA QUE LOS HACE ÚNICOS</h3>
+      <div class="g2">
+        <div>
+          <div class="feat-row">
+            <span class="fi">🪶</span>
+            <div>
+              <h4>FIBRA DE CARBONO</h4>
+              <p>Materiales 10 veces más resistentes que el acero con una fracción del peso. El Bugatti Chiron usa un monocasco de carbono que pesa solo 103 kg.</p>
+            </div>
+          </div>
+          <div class="feat-row">
+            <span class="fi">💨</span>
+            <div>
+              <h4>AERODINÁMICA ACTIVA</h4>
+              <p>Alerones que se ajustan automáticamente en milisegundos según la velocidad. El Lamborghini Aventador genera hasta 400 kg de downforce a 300 km/h.</p>
+            </div>
+          </div>
+          <div class="feat-row">
+            <span class="fi">🧲</span>
+            <div>
+              <h4>SUSPENSIÓN MAGNÉTICA</h4>
+              <p>Amortiguadores con fluido magnetoreológico que cambia su viscosidad en 1 milisegundo. El Ferrari 488 ajusta la suspensión antes de que el conductor lo sienta.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="feat-row">
+            <span class="fi">🧠</span>
+            <div>
+              <h4>ELECTRÓNICA DE F1</h4>
+              <p>Control de tracción, vectorización del par, frenado regenerativo y modos de conducción que transforman el carro según las condiciones de la pista.</p>
+            </div>
+          </div>
+          <div class="feat-row">
+            <span class="fi">🔵</span>
+            <div>
+              <h4>FRENOS CERÁMICOS</h4>
+              <p>Discos de carbono-cerámica que resisten más de 900°C. El Bugatti Chiron frena de 400 km/h a 0 en solo 9.3 segundos recorriendo 491 metros.</p>
+            </div>
+          </div>
+          <div class="feat-row">
+            <span class="fi">⚡</span>
+            <div>
+              <h4>HIBRIDACIÓN</h4>
+              <p>Motores eléctricos que llenan los "huecos" del turbo, entregando par instantáneo. La trinidad de hipercars híbridos de 2013 cambió la industria para siempre.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speedometer visual -->
+    <div class="reveal" style="margin-top:3rem;text-align:center">
+      <h3 style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:3px;color:var(--blue);margin-bottom:1.5rem">🏁 COMPARATIVA DE VELOCIDAD MÁXIMA</h3>
+      <div style="max-width:700px;margin:0 auto">
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🔵 Bugatti Chiron SS</span><span style="color:#4488ff">440 km/h</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="100%" style="background:linear-gradient(90deg,#0044cc,#4488ff)"></div></div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🟡 Koenigsegg Jesko Absolut</span><span style="color:#ffcc00">330+ km/h teórico</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="95%" style="background:linear-gradient(90deg,#aa8800,#ffcc00)"></div></div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🟡 Lamborghini Aventador SVJ</span><span style="color:#ffcc00">355 km/h</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="80%" style="background:linear-gradient(90deg,#aa8800,#ffcc00)"></div></div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🔴 Ferrari LaFerrari</span><span style="color:#ff4444">350 km/h</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="78%" style="background:linear-gradient(90deg,#aa0000,#ff4444)"></div></div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🟢 Porsche 911 GT3 RS</span><span style="color:#00ff88">296 km/h</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="67%" style="background:linear-gradient(90deg,#008844,#00ff88)"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;opacity:0.7;margin-bottom:0.3rem">
+            <span>🟠 Toyota Supra MK4 (stock)</span><span style="color:#ff8800">285 km/h</span>
+          </div>
+          <div class="stat-bar"><div class="stat-fill" data-w="64%" style="background:linear-gradient(90deg,#cc4400,#ff8800)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FINAL ══════════════════════════════ -->
+<section id="final">
+  <div class="halftone"></div>
+  <span style="position:absolute;font-size:26rem;opacity:0.018;font-family:serif;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;z-index:0">速夢</span>
+
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <div class="reveal">
+      <p class="sec-label">EL MENSAJE FINAL</p>
+      <h2 class="big-title">
+        PERSIGUE<br>
+        <span style="color:var(--blue)">TU</span><br>
+        <span style="color:var(--orange)">SUEÑO</span>
+      </h2>
+    </div>
+
+    <p class="reveal" style="max-width:700px;margin:2rem auto;font-size:1.12rem;line-height:1.9;opacity:0.83">
+      Deku nunca nació con poder, pero estudió cada Quirk hasta convertirlo en ventaja.<br>
+      Goku entrenó en 100G para romper sus límites.<br>
+      Asta canalizó su determinación en una voluntad de hierro.<br>
+      Tanjiro convirtió el dolor en destreza perfecta.<br><br>
+      <strong>Los ingenieros que crearon estos autos hicieron lo mismo:</strong> estudiaron, fallaron,
+      rediseñaron y volvieron a intentarlo hasta alcanzar la perfección mecánica.
+      Tu sueño de velocidad empieza con conocimiento.
+    </p>
+
+    <div class="pills reveal">
+      <span class="pill" style="border-color:var(--green);color:var(--green)">⚡ PLUS ULTRA</span>
+      <span class="pill" style="border-color:var(--orange);color:var(--orange)">🐉 SIN LÍMITES</span>
+      <span class="pill" style="border-color:var(--gold);color:var(--gold)">♣ MAGIA REAL</span>
+      <span class="pill" style="border-color:var(--teal);color:var(--teal)">🗡️ VELOCIDAD SUPREMA</span>
+    </div>
+
+    <div class="info-box reveal">
+      <h3 style="color:var(--blue)">¿QUIERES SABER MÁS?</h3>
+      <p>
+        <strong style="color:var(--blue)">Ingeniería Mecánica:</strong> la carrera que diseña estos monstruos.<br>
+        <strong style="color:var(--blue)">Aerodinámica:</strong> la física que convierte el aire en fuerza.<br>
+        <strong style="color:var(--blue)">Electrónica Automotriz:</strong> el cerebro digital de cada supercar.<br>
+        <span style="opacity:0.5;font-size:0.82rem;display:block;margin-top:0.5rem">El próximo gran diseñador de supercars puede ser tú.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">⚡ VELOCIDAD SUPREMA</div>
+  <p>
+    Enciclopedia visual de los mejores carros deportivos del mundo.<br>
+    Diseñada con temática anime para inspirar a las nuevas generaciones de ingenieros y apasionados.<br><br>
+    <span style="font-size:0.73rem">
+      My Hero Academia © Kōhei Horikoshi &nbsp;|&nbsp; Dragon Ball © Akira Toriyama &nbsp;|&nbsp; Black Clover © Yūki Tabata &nbsp;|&nbsp; Kimetsu no Yaiba © Koyoharu Gotouge<br>
+      Bugatti · Ferrari · Lamborghini · Toyota · McLaren · Porsche son marcas registradas de sus respectivos dueños. Uso educativo.
+    </span>
+  </p>
+</footer>
+
+<script>
+/* ── THREE.JS — RACING PARTICLE TRAILS ── */
+(function(){
+  const canvas = document.getElementById('canvas-bg');
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.z = 60;
+
+  const palette = [
+    new THREE.Color('#00aaff'), new THREE.Color('#0044cc'),
+    new THREE.Color('#ff6600'), new THREE.Color('#ffcc00'),
+    new THREE.Color('#dd1111'), new THREE.Color('#00ff88'),
+    new THREE.Color('#aa44ff'), new THREE.Color('#ffffff'),
+  ];
+
+  /* Main particle field */
+  const N = 2600;
+  const pos = new Float32Array(N*3);
+  const col = new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    pos[i*3]   = (Math.random()-0.5)*240;
+    pos[i*3+1] = (Math.random()-0.5)*240;
+    pos[i*3+2] = (Math.random()-0.5)*120;
+    const c = palette[i%palette.length];
+    col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+  const mat = new THREE.PointsMaterial({size:0.42,vertexColors:true,transparent:true,opacity:0.55,sizeAttenuation:true});
+  scene.add(new THREE.Points(geo, mat));
+
+  /* Speed trail particles — horizontal lines */
+  const NT = 300;
+  const tpos = new Float32Array(NT*3);
+  const vspeeds = new Float32Array(NT);
+  for(let i=0;i<NT;i++){
+    tpos[i*3]   = (Math.random()-0.5)*300;
+    tpos[i*3+1] = (Math.random()-0.5)*160;
+    tpos[i*3+2] = (Math.random()-0.5)*60;
+    vspeeds[i]  = 0.4 + Math.random()*1.2;
+  }
+  const tgeo = new THREE.BufferGeometry();
+  tgeo.setAttribute('position', new THREE.BufferAttribute(tpos,3));
+  const tmat = new THREE.PointsMaterial({size:0.8,color:0x0088ff,transparent:true,opacity:0.2,sizeAttenuation:true});
+  const trails = new THREE.Points(tgeo, tmat);
+  scene.add(trails);
+
+  let mx=0,my=0;
+  window.addEventListener('mousemove', e=>{
+    mx = (e.clientX/window.innerWidth -0.5)*2;
+    my = (e.clientY/window.innerHeight-0.5)*2;
+  });
+
+  const tposArr = tgeo.attributes.position.array;
+  let t=0;
+  function loop(){
+    requestAnimationFrame(loop);
+    t+=0.0005;
+
+    /* rotate main field */
+    scene.children[0].rotation.y = t*0.06 + mx*0.07;
+    scene.children[0].rotation.x = t*0.02 + my*0.04;
+
+    /* move speed trails left → reset right */
+    for(let i=0;i<NT;i++){
+      tposArr[i*3] -= vspeeds[i]*0.3;
+      if(tposArr[i*3] < -150){ tposArr[i*3] = 150; }
+    }
+    tgeo.attributes.position.needsUpdate = true;
+
+    mat.opacity = 0.45 + Math.sin(t*3)*0.07;
+    renderer.render(scene, camera);
+  }
+  loop();
+
+  window.addEventListener('resize',()=>{
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+})();
+
+/* ── GSAP ── */
+gsap.registerPlugin(ScrollTrigger);
+
+/* Reveal */
+document.querySelectorAll('.reveal').forEach(el=>{
+  gsap.fromTo(el, {opacity:0,y:45},{
+    opacity:1,y:0,duration:0.75,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none reverse'}
+  });
+});
+
+/* Hero entrance */
+const htl = gsap.timeline({delay:0.3});
+htl.fromTo('.hero-badge',{opacity:0,y:-25},{opacity:1,y:0,duration:0.7,ease:'power3.out'})
+   .fromTo('.hero-title',{opacity:0,scale:0.82,rotationX:-25},{opacity:1,scale:1,rotationX:0,duration:1.1,ease:'back.out(1.5)'},'-=0.3')
+   .fromTo('.hero-sub',  {opacity:0,y:22},{opacity:1,y:0,duration:0.7,ease:'power3.out'},'-=0.4')
+   .fromTo('.btn-cta',   {opacity:0,y:22},{opacity:1,y:0,duration:0.6,ease:'back.out(1.7)'},'-=0.3');
+
+/* Kanji float */
+gsap.to('.kanji',{y:-22,duration:3.5,ease:'power1.inOut',yoyo:true,repeat:-1,stagger:0.8});
+
+/* 3D tilt on car-cards */
+document.querySelectorAll('.car-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r = card.getBoundingClientRect();
+    const x = e.clientX-r.left-r.width/2;
+    const y = e.clientY-r.top-r.height/2;
+    gsap.to(card,{rotationY:(x/r.width)*16,rotationX:-(y/r.height)*10,duration:0.3,ease:'power1.out',transformPerspective:900});
+  });
+  card.addEventListener('mouseleave',()=>{
+    gsap.to(card,{rotationX:0,rotationY:0,duration:0.55,ease:'power2.out'});
+  });
+});
+
+/* Tilt on tipo-cards */
+document.querySelectorAll('.tipo-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    gsap.to(card,{rotationY:((e.clientX-r.left-r.width/2)/r.width)*18,rotationX:-((e.clientY-r.top-r.height/2)/r.height)*12,duration:0.3,ease:'power1.out',transformPerspective:800});
+  });
+  card.addEventListener('mouseleave',()=>gsap.to(card,{rotationX:0,rotationY:0,duration:0.5,ease:'power2.out'}));
+});
+
+/* Stat bar fill on scroll */
+document.querySelectorAll('.stat-fill').forEach(bar=>{
+  const w = bar.getAttribute('data-w')||'80%';
+  gsap.to(bar,{
+    width:w,duration:1.4,ease:'power2.out',
+    scrollTrigger:{trigger:bar,start:'top 92%'}
+  });
+});
+
+/* Stat boxes pop */
+document.querySelectorAll('.stat-box').forEach((box,i)=>{
+  gsap.fromTo(box,{opacity:0,scale:0.85,y:30},{
+    opacity:1,scale:1,y:0,duration:0.6,delay:i*0.12,ease:'back.out(1.5)',
+    scrollTrigger:{trigger:box,start:'top 88%'}
+  });
+});
+
+/* Timeline stagger */
+gsap.utils.toArray('.tl-item').forEach((item,i)=>{
+  gsap.fromTo(item,{opacity:0,x:-30},{
+    opacity:1,x:0,duration:0.6,delay:i*0.14,ease:'power3.out',
+    scrollTrigger:{trigger:item,start:'top 88%'}
+  });
+});
+
+/* SVG cars pulse */
+gsap.utils.toArray('section svg').forEach(svg=>{
+  gsap.to(svg,{y:-10,duration:3.2,ease:'power1.inOut',yoyo:true,repeat:-1});
+});
+
+/* Nav active highlight */
+const secs = [...document.querySelectorAll('section[id]')];
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY+180;
+  secs.forEach(s=>{
+    const a = document.querySelector(`nav a[href="#${s.id}"]`);
+    if(!a) return;
+    a.style.color = (y>=s.offsetTop && y<s.offsetTop+s.offsetHeight) ? 'var(--blue)' : '';
+  });
+},{passive:true});
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>

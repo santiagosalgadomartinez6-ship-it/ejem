@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(255, 0, 0);
+}
+
+h2{
+    background-color: rgba(255, 255, 255, 0.877);
+}
+
+h3{
+    background-color: rgba(255, 255, 255, 0.829);
+}
+
+.nombres{
+    color: rgba(137, 43, 226, 0.952);
+    background-color: rgba(238, 255, 0, 0.849);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    text-align: center;
+}
+
+.img

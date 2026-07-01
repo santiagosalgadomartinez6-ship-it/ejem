@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HERO SIN DROGAS — Campaña de Concientización</title>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --dark:       #071a09;
+      --green:      #00e676;
+      --red-mha:    #ff6b35;
+      --orange:     #ff9800;
+      --blue-db:    #29b6f6;
+      --gold:       #ffd54f;
+      --red-kny:    #ef5350;
+      --teal-kny:   #26c6da;
+      --purple:     #ab47bc;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse at 15% 40%, rgba(0,180,90,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 70%, rgba(41,182,246,0.06) 0%, transparent 55%);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── THREE.JS CANVAS ─── */
+    #canvas-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── WARNING MARQUEE ─── */
+    .warn-strip {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      background: linear-gradient(90deg, #5d3a00, var(--orange), #5d3a00);
+      padding: 0.35rem 0;
+      overflow: hidden;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .warn-inner {
+      display: inline-block;
+      animation: marquee 25s linear infinite;
+    }
+    @keyframes marquee {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 24px; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 2.5rem;
+      background: rgba(6,6,12,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,255,136,0.2);
+    }
+    .nav-logo {
+      font-family: 'Bangers', cursive;
+      font-size: 1.7rem;
+      letter-spacing: 3px;
+      color: var(--green);
+      text-shadow: 0 0 18px var(--green);
+    }
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ─── SHARED LAYOUT ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 7rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+    .halftone {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,230,118,0.045) 1.5px, transparent 1.5px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── SECTION LABELS ─── */
+    .sec-label {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 0.4rem;
+    }
+    .sec-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 3px;
+      margin-bottom: 0.8rem;
+    }
+    .sec-bar {
+      width: 80px;
+      height: 4px;
+      border-radius: 2px;
+      margin-bottom: 2.2rem;
+    }
+
+    /* ─── GRIDS ─── */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+    .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; }
+    @media (max-width: 900px) { .g3 { grid-template-columns: 1fr 1fr; } .g4 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+
+    /* ─── CARDS BASE ─── */
+    .card {
+      background: rgba(255,255,255,0.028);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .card:hover { transform: translateY(-8px); }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    /* ─── QUOTE BLOCKS ─── */
+    .quote {
+      border-left: 4px solid;
+      padding: 1rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-style: italic;
+      margin: 1.8rem 0;
+    }
+    .quote small {
+      display: block;
+      font-size: 0.8rem;
+      font-style: normal;
+      opacity: 0.6;
+      margin-top: 0.4rem;
+    }
+
+    /* ─── TAGS ─── */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
+    .tag {
+      padding: 0.2rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      border: 1px solid;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── HP BAR ─── */
+    .hp-wrap { margin-top: 1.1rem; }
+    .hp-bar {
+      background: rgba(255,255,255,0.08);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 0.3rem;
+    }
+    .hp-fill {
+      height: 100%;
+      border-radius: 5px;
+      width: 0; /* animated */
+      position: relative;
+      overflow: hidden;
+      transition: width 0.6s ease;
+    }
+    .hp-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -60%;
+      width: 50%; height: 100%;
+      background: rgba(255,255,255,0.35);
+      animation: shine 2s ease-in-out infinite;
+    }
+    @keyframes shine { to { left: 150%; } }
+    .hp-label { font-size: 0.7rem; opacity: 0.45; letter-spacing: 1px; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ─── SPEED LINES decoration ─── */
+    .speed-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .speed-bg::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 250vmax; height: 250vmax;
+      transform: translate(-50%, -50%) rotate(0deg);
+      background: repeating-conic-gradient(rgba(255,102,0,0.018) 0deg, transparent 2deg, transparent 10deg);
+      animation: rotspeed 40s linear infinite;
+    }
+    @keyframes rotspeed { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* ─── IMPACT TEXT (3D sketch effect) ─── */
+    .text-3d-green {
+      text-shadow:
+        2px 2px 0 #004422,
+        4px 4px 0 rgba(0,255,136,0.3),
+        6px 6px 0 rgba(0,255,136,0.15),
+        0 0 50px rgba(0,255,136,0.25);
+    }
+    .text-3d-orange {
+      text-shadow:
+        2px 2px 0 #441100,
+        4px 4px 0 rgba(255,102,0,0.3),
+        6px 6px 0 rgba(255,102,0,0.15),
+        0 0 50px rgba(255,102,0,0.25);
+    }
+    .text-3d-gold {
+      text-shadow:
+        2px 2px 0 #443300,
+        4px 4px 0 rgba(255,215,0,0.3),
+        6px 6px 0 rgba(255,215,0,0.15),
+        0 0 50px rgba(255,215,0,0.25);
+    }
+    .text-3d-red {
+      text-shadow:
+        2px 2px 0 #330008,
+        4px 4px 0 rgba(239,83,80,0.3),
+        6px 6px 0 rgba(239,83,80,0.15),
+        0 0 50px rgba(239,83,80,0.35);
+    }
+
+    /* ─── MANGA PANEL ─── */
+    .manga-panel {
+      border: 2px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+    }
+    .manga-panel::after {
+      content: attr(data-n);
+      position: absolute;
+      bottom: 10px; right: 14px;
+      font-family: 'Bangers', cursive;
+      font-size: 1.8rem;
+      opacity: 0.07;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /*  HERO                                       */
+    /* ═══════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 35% 55%, rgba(0,200,100,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 78% 28%, rgba(41,182,246,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 80%, rgba(255,152,0,0.06) 0%, transparent 45%);
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 2px solid var(--green);
+      color: var(--green);
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      box-shadow: 0 0 20px rgba(0,255,136,0.25);
+    }
+    .hero-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(4.5rem, 16vw, 13rem);
+      line-height: 0.88;
+      letter-spacing: 6px;
+    }
+    .hero-title .t-white { color: #fff; }
+    .hero-title .t-sin   { color: var(--red-mha); }
+    .hero-title .t-drogas { color: #fff; }
+
+    .hero-sub {
+      max-width: 580px;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      line-height: 1.75;
+      opacity: 0.82;
+      margin: 1.6rem auto 0;
+    }
+    .hero-sub strong { color: var(--green); }
+
+    .btn-cta {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2.8rem;
+      background: linear-gradient(135deg, var(--green), #00cc66);
+      color: #000;
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow: 0 0 35px rgba(0,255,136,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-cta:hover {
+      transform: scale(1.06) translateY(-3px);
+      box-shadow: 0 0 55px rgba(0,255,136,0.6);
+    }
+
+    /* floating kanji */
+    .kanji {
+      position: absolute;
+      font-family: serif;
+      opacity: 0.055;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* scroll arrow */
+    .scroll-arr {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.45;
+      animation: bob 2.2s ease-in-out infinite;
+    }
+    .scroll-arr span { font-size: 0.7rem; letter-spacing: 3px; }
+    @keyframes bob {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(-12px); }
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /*  QUE SON — MHA                             */
+    /* ═══════════════════════════════════════════ */
+    #que-son { background: linear-gradient(160deg, rgba(0,40,18,0.97), rgba(7,26,9,0.97)); }
+    #que-son .sec-title { color: var(--green); }
+    #que-son .sec-bar   { background: linear-gradient(90deg, var(--green), transparent); }
+    #que-son .card::before { background: linear-gradient(90deg, var(--green), transparent); }
+    #que-son .quote { border-color: var(--green); background: rgba(0,255,136,0.04); color: var(--green); }
+
+    .mha-logo {
+      position: absolute;
+      right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 14rem;
+      opacity: 0.03;
+      font-family: 'Bangers', cursive;
+      letter-spacing: -5px;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /*  TIPOS — DB                                */
+    /* ═══════════════════════════════════════════ */
+    #tipos { background: linear-gradient(160deg, rgba(32,20,0,0.97), rgba(7,26,9,0.97)); }
+    #tipos .sec-title { color: var(--orange); }
+    #tipos .sec-bar   { background: linear-gradient(90deg, var(--orange), transparent); }
+    #tipos .quote { border-color: var(--orange); background: rgba(255,102,0,0.05); color: var(--orange); }
+
+    .tipo-card {
+      background: rgba(255,255,255,0.028);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2rem 1.6rem;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(.175,.885,.32,1.275), box-shadow 0.4s;
+      transform-style: preserve-3d;
+      cursor: default;
+    }
+    .tipo-card .t-icon { font-size: 3.2rem; display: block; margin-bottom: 0.8rem; }
+    .tipo-card h3 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.75rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.6rem;
+    }
+    .tipo-card p { font-size: 0.88rem; opacity: 0.8; line-height: 1.65; }
+
+    /* ═══════════════════════════════════════════ */
+    /*  CARACTERÍSTICAS — BLACK CLOVER            */
+    /* ═══════════════════════════════════════════ */
+    #caract { background: linear-gradient(160deg, rgba(24,22,0,0.97), rgba(7,26,9,0.97)); }
+    #caract .sec-title { color: var(--gold); }
+    #caract .sec-bar   { background: linear-gradient(90deg, var(--gold), transparent); }
+    #caract .quote { border-color: var(--gold); background: rgba(255,215,0,0.05); color: var(--gold); }
+
+    .feat-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.4rem;
+      padding: 1.4rem 1.5rem;
+      border: 1px solid rgba(255,215,0,0.1);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.02);
+      transition: all 0.3s;
+    }
+    .feat-row:hover {
+      border-color: rgba(255,215,0,0.4);
+      background: rgba(255,215,0,0.05);
+      transform: translateX(8px);
+    }
+    .feat-row .f-icon { font-size: 2.4rem; flex-shrink: 0; }
+    .feat-row h4 { font-weight: 900; color: var(--gold); margin-bottom: 0.3rem; }
+    .feat-row p  { font-size: 0.88rem; opacity: 0.8; line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════ */
+    /*  PELIGROS — KNY                            */
+    /* ═══════════════════════════════════════════ */
+    #peligros { background: linear-gradient(160deg, rgba(32,5,5,0.98), rgba(7,26,9,0.98)); }
+    #peligros .sec-title { color: var(--red-kny); }
+    #peligros .sec-bar   { background: linear-gradient(90deg, var(--red-kny), transparent); }
+    #peligros .quote { border-color: var(--red-kny); background: rgba(239,83,80,0.06); color: #ff6b6b; }
+
+    .danger-card {
+      background: rgba(239,83,80,0.06);
+      border: 1px solid rgba(239,83,80,0.25);
+      border-radius: 16px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .danger-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red-kny), transparent);
+    }
+    .danger-card:hover {
+      border-color: var(--red-kny);
+      box-shadow: 0 0 28px rgba(239,83,80,0.25);
+      transform: translateY(-6px);
+    }
+    .danger-card .d-badge {
+      display: inline-block;
+      background: var(--red-kny);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+    .danger-card .d-icon { font-size: 2.8rem; display: block; margin-bottom: 0.7rem; }
+    .danger-card h3 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: #ff6b6b;
+      margin-bottom: 0.7rem;
+    }
+    .danger-card p { font-size: 0.88rem; opacity: 0.8; line-height: 1.65; }
+    .hp-fill.red   { background: linear-gradient(90deg, var(--red-kny), #ff6b6b); }
+
+    /* ═══════════════════════════════════════════ */
+    /*  DATOS                                      */
+    /* ═══════════════════════════════════════════ */
+    #datos { background: linear-gradient(180deg, rgba(7,26,9,0.97), rgba(5,20,7,0.99)); }
+
+    .stat-box {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      transition: transform 0.3s;
+    }
+    .stat-box:hover { transform: translateY(-6px); }
+    .stat-num {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+    .stat-lbl { font-size: 0.82rem; opacity: 0.65; margin-top: 0.5rem; line-height: 1.4; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2.2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--green), var(--orange), var(--red-kny));
+      border-radius: 2px;
+    }
+    .tl-item { margin-bottom: 2.2rem; padding-left: 1.5rem; position: relative; }
+    .tl-dot {
+      position: absolute;
+      left: -0.72rem; top: 0.3rem;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--dark);
+    }
+    .tl-item h4 { font-weight: 900; margin-bottom: 0.3rem; }
+    .tl-item p  { font-size: 0.88rem; opacity: 0.78; line-height: 1.65; }
+
+    /* ═══════════════════════════════════════════ */
+    /*  CTA FINAL                                  */
+    /* ═══════════════════════════════════════════ */
+    #final {
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(0,230,118,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse at 20% 80%, rgba(255,152,0,0.07) 0%, transparent 50%);
+      padding: 10rem 2rem;
+    }
+    #final .big-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3.5rem, 12vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: 5px;
+    }
+    .anime-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 2rem 0;
+    }
+    .pill {
+      padding: 0.45rem 1.3rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      border: 2px solid;
+      letter-spacing: 1px;
+    }
+    .pill-g { border-color: var(--green);    color: var(--green); }
+    .pill-o { border-color: var(--orange);   color: var(--orange); }
+    .pill-d { border-color: var(--gold);     color: var(--gold); }
+    .pill-t { border-color: var(--teal-kny); color: var(--teal-kny); }
+
+    .help-box {
+      max-width: 560px;
+      margin: 3rem auto 0;
+      padding: 2rem;
+      background: rgba(0,255,136,0.05);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 20px;
+    }
+    .help-box h3 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .help-box p { line-height: 2; opacity: 0.85; font-size: 0.95rem; }
+    .help-box strong { color: var(--green); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(6,6,12,0.99);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    footer .f-logo {
+      font-family: 'Bangers', cursive;
+      font-size: 2rem;
+      letter-spacing: 4px;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    footer p { font-size: 0.82rem; opacity: 0.4; line-height: 1.9; }
+
+    /* ─── NEON DIVIDER ─── */
+    .neon-div {
+      height: 1px;
+      margin: 3rem 0;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0.25;
+    }
+
+    /* ─── ICON BIG ─── */
+    .icon-big { font-size: 3rem; display: block; margin-bottom: 0.9rem; }
+
+    /* ─── glow utilities ─── */
+    .glow-g { box-shadow: 0 0 22px rgba(0,230,118,0.28); }
+    .glow-o { box-shadow: 0 0 22px rgba(255,152,0,0.28); }
+    .glow-d { box-shadow: 0 0 22px rgba(255,213,79,0.28); }
+    .glow-r { box-shadow: 0 0 22px rgba(239,83,80,0.28); }
+
+    /* ─── MASCOTA EXPLORADORA ─── */
+    .mascota {
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 8px 28px rgba(0,0,0,0.55));
+    }
+    .mascota-hero {
+      position: absolute;
+      right: 4%;
+      bottom: 7%;
+      width: clamp(160px, 22vw, 310px);
+      animation: mascota-float 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .mascota-section-right {
+      position: absolute;
+      right: 1%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(130px, 14vw, 210px);
+      animation: mascota-float 5s ease-in-out infinite 0.8s;
+      z-index: 2;
+      opacity: 0.88;
+    }
+    .mascota-section-left {
+      position: absolute;
+      left: 1%;
+      top: 50%;
+      width: clamp(130px, 14vw, 210px);
+      animation: mascota-float-flip 5s ease-in-out infinite 0.4s;
+      z-index: 2;
+      opacity: 0.88;
+    }
+    .mascota-final {
+      width: clamp(220px, 28vw, 370px);
+      display: block;
+      margin: 0 auto 2rem;
+      animation: mascota-float 3.5s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes mascota-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-20px); }
+    }
+    @keyframes mascota-float-flip {
+      0%, 100% { transform: translateY(0) scaleX(-1); }
+      50%       { transform: translateY(-20px) scaleX(-1); }
+    }
+    @media (max-width: 900px) {
+      .mascota-section-right,
+      .mascota-section-left { display: none; }
+      .mascota-hero { width: 130px; bottom: 13%; right: 2%; }
+    }
+
+    /* ─── Floating number badge (dragon balls) ─── */
+    .db-ball {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffdd55, #ff6600 60%, #aa3300);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bangers', cursive;
+      font-size: 1.3rem;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(255,102,0,0.5), inset 0 0 10px rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .db-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+
+    /* ─── SVG Character Silhouettes ─── */
+    .char-section { display: flex; justify-content: center; margin: 2rem 0; }
+    svg.anime-char { filter: drop-shadow(0 0 12px currentColor); }
+
+    /* ─── FORMS ─── */
+    .form-grid { display: grid; gap: 1.1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.5px; opacity: 0.85; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      background: rgba(0,255,136,0.05);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-check { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; opacity: 0.75; }
+    .form-check input { margin-top: 0.2rem; }
+    .btn-submit {
+      justify-self: start;
+      padding: 0.85rem 2.4rem;
+      background: linear-gradient(135deg, var(--green), #00cc66);
+      color: #000;
+      font-weight: 900;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-submit:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,255,136,0.4); }
+    .btn-submit:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: none; }
+    .form-msg { font-size: 0.85rem; font-weight: 800; margin-top: 0.8rem; min-height: 1.2em; }
+    .form-msg.ok  { color: var(--green); }
+    .form-msg.err { color: #ff6b6b; }
+
+    /* ─── POLL ─── */
+    .poll-option {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      margin-bottom: 0.6rem;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .poll-option:hover { border-color: var(--green); background: rgba(0,255,136,0.05); }
+    .poll-option input { accent-color: var(--green); }
+    .poll-results { margin-top: 1.5rem; display: none; }
+    .poll-results.show { display: block; }
+    .poll-row { margin-bottom: 0.9rem; }
+    .poll-row-label { display: flex; justify-content: space-between; font-size: 0.82rem; opacity: 0.75; margin-bottom: 0.3rem; }
+
+    /* ─── TEAM ─── */
+    .team-card { text-align: center; padding: 1.6rem 1rem; }
+    .team-role { font-family: 'Bangers', cursive; font-size: 1.1rem; letter-spacing: 1px; color: var(--green); margin-bottom: 0.3rem; }
+    .team-name { font-size: 0.9rem; opacity: 0.8; }
+
+    /* ─── VIDEO ─── */
+    .video-wrap { position: relative; width: 100%; max-width: 780px; margin: 0 auto; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000; }
+    .video-wrap iframe { width: 100%; height: 100%; border: 0; }
+    .video-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; opacity: 0.5; font-size: 0.85rem; text-align: center; padding: 1rem; }
+  </style>
+</head>
+<body>
+
+<!-- Three.js canvas -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- Warning marquee -->
+<div class="warn-strip">
+  <span class="warn-inner">
+    ⚠️ LAS DROGAS SON PELIGROSAS — CONÓCELAS PARA EVITARLAS — SÉ EL HÉROE DE TU HISTORIA — ¡PLUS ULTRA SIN DROGAS! ⚠️ &nbsp;&nbsp;&nbsp;
+    ⚠️ LAS DROGAS SON PELIGROSAS — CONÓCELAS PARA EVITARLAS — SÉ EL HÉROE DE TU HISTORIA — ¡PLUS ULTRA SIN DROGAS! ⚠️
+  </span>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">🦦 HERO SIN DROGAS</div>
+  <div class="nav-links">
+    <a href="#que-son">¿Qué son?</a>
+    <a href="#tipos">Tipos</a>
+    <a href="#caract">Características</a>
+    <a href="#peligros">Peligros</a>
+    <a href="#datos">Datos</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#final">Actúa</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- HERO                                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="halftone"></div>
+
+  <!-- Background kanji -->
+  <span class="kanji" style="font-size:8rem;top:8%;left:3%;transform:rotate(-15deg)">力</span>
+  <span class="kanji" style="font-size:6rem;top:15%;right:6%;transform:rotate(12deg)">夢</span>
+  <span class="kanji" style="font-size:9rem;bottom:18%;left:8%;transform:rotate(5deg)">勇</span>
+  <span class="kanji" style="font-size:7rem;bottom:25%;right:4%;transform:rotate(-10deg)">魔</span>
+  <span class="kanji" style="font-size:5rem;top:50%;left:1%;transform:rotate(8deg)">心</span>
+
+  <!-- SVG hero emblem -->
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0.04">
+    <svg width="600" height="600" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,10 130,70 195,70 145,110 165,175 100,135 35,175 55,110 5,70 70,70" fill="#00ff88"/>
+    </svg>
+  </div>
+
+  <div style="position:relative;z-index:2;text-align:center;">
+    <div class="hero-badge">🌟 Campaña de Concientización 🌟</div>
+
+    <h1 class="hero-title text-3d-green">
+      <span class="t-white">HERO</span><br>
+      <span class="t-sin" style="text-shadow:2px 2px 0 #550010,4px 4px 0 rgba(255,34,68,.3),0 0 50px rgba(255,34,68,.35)">SIN</span><br>
+      <span class="t-drogas">DROGAS</span>
+    </h1>
+
+    <p class="hero-sub">
+      Como los mejores héroes del anime,
+      <strong>tu poder real está dentro de ti</strong>.
+      Conoce las drogas, sus peligros y elige tu verdadero camino.
+    </p>
+
+    <a href="#que-son" class="btn-cta">¡Comenzar mi misión! ⚡</a>
+  </div>
+
+  <div class="scroll-arr">
+    <span>SCROLL</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+
+  <!-- Mascota 1: sentada feliz junto a cascada → bienvenida -->
+  <img src="img/mascota1.png" class="mascota mascota-hero" alt="Mascota exploradora dando la bienvenida">
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ¿QUÉ SON LAS DROGAS? — MY HERO ACADEMIA       -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="que-son">
+  <div class="halftone"></div>
+  <div class="mha-logo">MHA</div>
+
+  <!-- Mascota 2: con lupa investigando → ¿qué son las drogas? -->
+  <img src="img/mascota2.png" class="mascota mascota-section-right" alt="Mascota investigando con lupa">
+
+  <div class="container" style="position:relative;z-index:1;">
+
+    <!-- Header -->
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--green)">MY HERO ACADEMIA · CAPÍTULO 01</p>
+      <h2 class="sec-title text-3d-green">¿QUÉ SON<br>LAS DROGAS?</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <!-- Deku-inspired character SVG -->
+    <div class="char-section reveal">
+      <svg class="anime-char" width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="color:var(--green)">
+        <!-- Body silhouette - hero stance -->
+        <ellipse cx="80" cy="40" rx="28" ry="30" fill="#00ff88" opacity="0.8"/>
+        <!-- Hair spikes -->
+        <polygon points="55,18 60,5 65,20" fill="#00bb55"/>
+        <polygon points="62,14 67,0 73,16" fill="#00dd66"/>
+        <polygon points="72,12 78,0 84,14" fill="#00ff88"/>
+        <polygon points="82,14 88,1 93,16" fill="#00dd66"/>
+        <polygon points="90,18 96,6 100,20" fill="#00bb55"/>
+        <!-- Eyes -->
+        <ellipse cx="68" cy="38" rx="5" ry="6" fill="#003322"/>
+        <ellipse cx="92" cy="38" rx="5" ry="6" fill="#003322"/>
+        <ellipse cx="69" cy="37" rx="2" ry="2.5" fill="#00ff88"/>
+        <ellipse cx="93" cy="37" rx="2" ry="2.5" fill="#00ff88"/>
+        <!-- Body cape -->
+        <path d="M40,70 Q30,110 25,160 L135,160 Q130,110 120,70 Q100,90 80,88 Q60,90 40,70Z" fill="#003322" opacity="0.7"/>
+        <path d="M52,70 L70,160 L90,160 L108,70 Q94,85 80,83 Q66,85 52,70Z" fill="#00cc55" opacity="0.6"/>
+        <!-- Arms -->
+        <path d="M40,70 Q20,90 15,130" stroke="#00ff88" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M120,70 Q140,90 145,130" stroke="#00ff88" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <!-- Glow aura -->
+        <ellipse cx="80" cy="100" rx="75" ry="90" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.2" stroke-dasharray="6 4"/>
+      </svg>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote reveal">
+      <em>"Un verdadero héroe siempre enfrenta la verdad, no huye de ella."</em>
+      <small>— Inspirado en Izuku Midoriya · My Hero Academia</small>
+    </div>
+
+    <!-- Info cards -->
+    <div class="g2">
+      <div class="card manga-panel reveal glow-g" data-n="01" style="border-color:rgba(0,255,136,0.12)">
+        <span class="icon-big">🧬</span>
+        <h3 style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--green);margin-bottom:1rem">DEFINICIÓN</h3>
+        <p style="line-height:1.8;opacity:0.85">
+          Las <strong style="color:var(--green)">drogas</strong> son sustancias químicas que al ingresar al organismo
+          producen cambios en el <strong>sistema nervioso central</strong>, alterando el estado de ánimo,
+          la percepción, el comportamiento y las funciones cognitivas.
+        </p>
+        <p style="line-height:1.8;opacity:0.85;margin-top:1rem">
+          Pueden ser de origen <strong style="color:var(--green)">natural</strong> (plantas) o
+          <strong style="color:var(--green)">sintético</strong> (fabricadas en laboratorio),
+          y generan dependencia física y/o psicológica.
+        </p>
+      </div>
+
+      <div class="card manga-panel reveal glow-g" data-n="02" style="border-color:rgba(0,255,136,0.12)">
+        <span class="icon-big">⚗️</span>
+        <h3 style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--green);margin-bottom:1rem">¿CÓMO ACTÚAN?</h3>
+        <p style="line-height:1.8;opacity:0.85">
+          Interfieren con los <strong style="color:var(--green)">neurotransmisores</strong> del cerebro —los mensajeros
+          químicos que controlan cómo nos sentimos y tomamos decisiones.
+        </p>
+        <ul style="margin-top:1rem;line-height:2.1;opacity:0.82;padding-left:1.2rem">
+          <li>Imitan a los neurotransmisores naturales</li>
+          <li>Inundan el circuito de recompensa con dopamina</li>
+          <li>Alteran la percepción del tiempo y la realidad</li>
+          <li>Modifican la química cerebral permanentemente</li>
+          <li>Crean un "recuerdo" de placer imposible de ignorar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:1.5rem">
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="icon-big">🧠</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">EFECTO CEREBRAL</h4>
+        <p style="font-size:0.88rem;opacity:0.78;line-height:1.65">Alteran la estructura y función del cerebro, especialmente zonas de placer, memoria y toma de decisiones.</p>
+      </div>
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="icon-big">🔗</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">DEPENDENCIA</h4>
+        <p style="font-size:0.88rem;opacity:0.78;line-height:1.65">El cerebro aprende a "necesitarlas", creando la adicción que lo esclaviza gradualmente sin que la persona lo note.</p>
+      </div>
+      <div class="card reveal" style="text-align:center;border-color:rgba(0,255,136,0.1)">
+        <span class="icon-big">📈</span>
+        <h4 style="color:var(--green);font-weight:900;margin-bottom:0.5rem">TOLERANCIA</h4>
+        <p style="font-size:0.88rem;opacity:0.78;line-height:1.65">Con el tiempo, el cuerpo exige más cantidad para sentir el mismo efecto: una trampa sin fondo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TIPOS — DRAGON BALL                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="tipos">
+  <div class="halftone"></div>
+  <div class="speed-bg"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--orange)">DRAGON BALL · SAGA DE LOS TIPOS</p>
+      <h2 class="sec-title text-3d-orange">TIPOS DE<br>DROGAS</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <!-- Goku-inspired SVG silhouette -->
+    <div class="char-section reveal">
+      <svg class="anime-char" width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="color:var(--orange)">
+        <!-- Hair wild spikes -->
+        <polygon points="80,5 65,30 70,25 60,45 72,35 68,55" fill="#ff6600"/>
+        <polygon points="80,5 95,30 90,25 100,45 88,35 92,55" fill="#ff8800"/>
+        <polygon points="80,5 80,35" stroke="#ffaa00" stroke-width="4" fill="none"/>
+        <!-- Head -->
+        <ellipse cx="80" cy="55" rx="26" ry="28" fill="#ff6600" opacity="0.85"/>
+        <!-- Eyes -->
+        <ellipse cx="70" cy="52" rx="5" ry="5" fill="#331500"/>
+        <ellipse cx="90" cy="52" rx="5" ry="5" fill="#331500"/>
+        <circle cx="71" cy="51" r="2" fill="#ff6600"/>
+        <circle cx="91" cy="51" r="2" fill="#ff6600"/>
+        <!-- Aura glow rays -->
+        <line x1="80" y1="80" x2="30" y2="160" stroke="#ffaa00" stroke-width="3" opacity="0.3"/>
+        <line x1="80" y1="80" x2="55" y2="175" stroke="#ff8800" stroke-width="4" opacity="0.4"/>
+        <line x1="80" y1="80" x2="80" y2="180" stroke="#ff6600" stroke-width="5" opacity="0.5"/>
+        <line x1="80" y1="80" x2="105" y2="175" stroke="#ff8800" stroke-width="4" opacity="0.4"/>
+        <line x1="80" y1="80" x2="130" y2="160" stroke="#ffaa00" stroke-width="3" opacity="0.3"/>
+        <!-- Body -->
+        <path d="M55,82 Q40,100 35,150 L125,150 Q120,100 105,82 Q94,92 80,90 Q66,92 55,82Z" fill="#cc4400" opacity="0.75"/>
+        <!-- Belt -->
+        <rect x="55" y="118" width="50" height="8" rx="4" fill="#ff6600" opacity="0.6"/>
+        <!-- Power aura circle -->
+        <circle cx="80" cy="120" r="68" fill="none" stroke="#ffaa00" stroke-width="3" opacity="0.15" stroke-dasharray="10 5"/>
+        <circle cx="80" cy="120" r="80" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.1"/>
+      </svg>
+    </div>
+
+    <div class="quote reveal">
+      <em>"Conocer al enemigo es el primer paso para vencerlo. Prepárate."</em>
+      <small>— Inspirado en Son Goku · Dragon Ball</small>
+    </div>
+
+    <!-- Dragon balls header -->
+    <div class="db-row reveal">
+      <div class="db-ball">1</div>
+      <div class="db-ball">2</div>
+      <div class="db-ball">3</div>
+      <div class="db-ball">4</div>
+      <div class="db-ball">5</div>
+      <span style="margin-left:0.5rem;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:var(--orange)">5 CATEGORÍAS DE DROGAS</span>
+    </div>
+
+    <div class="g3 reveal">
+      <!-- Estimulantes -->
+      <div class="tipo-card" style="border-color:rgba(255,102,0,0.2)">
+        <span class="t-icon">⚡</span>
+        <h3 style="color:var(--orange)">ESTIMULANTES</h3>
+        <p>Aceleran el sistema nervioso central. Producen euforia, energía artificial y suprimen el sueño. Altamente adictivos.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.08)">Cocaína</span>
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.08)">Anfetaminas</span>
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.08)">Metanfetamina</span>
+          <span class="tag" style="color:var(--orange);border-color:rgba(255,102,0,0.4);background:rgba(255,102,0,0.08)">Nicotina</span>
+        </div>
+      </div>
+
+      <!-- Depresores -->
+      <div class="tipo-card" style="border-color:rgba(26,107,255,0.2)">
+        <span class="t-icon">🌊</span>
+        <h3 style="color:var(--blue-db)">DEPRESORES</h3>
+        <p>Ralentizan el SNC. Dan sensación de relajación pero pueden causar depresión respiratoria fatal.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--blue-db);border-color:rgba(26,107,255,0.4);background:rgba(26,107,255,0.08)">Alcohol</span>
+          <span class="tag" style="color:var(--blue-db);border-color:rgba(26,107,255,0.4);background:rgba(26,107,255,0.08)">Heroína</span>
+          <span class="tag" style="color:var(--blue-db);border-color:rgba(26,107,255,0.4);background:rgba(26,107,255,0.08)">Benzodiacepinas</span>
+          <span class="tag" style="color:var(--blue-db);border-color:rgba(26,107,255,0.4);background:rgba(26,107,255,0.08)">Barbitúricos</span>
+        </div>
+      </div>
+
+      <!-- Alucinógenos -->
+      <div class="tipo-card" style="border-color:rgba(170,68,255,0.2)">
+        <span class="t-icon">🌀</span>
+        <h3 style="color:var(--purple)">ALUCINÓGENOS</h3>
+        <p>Distorsionan profundamente la percepción. Pueden desencadenar psicosis y trastornos mentales permanentes.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.08)">LSD</span>
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.08)">Hongos</span>
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.08)">Peyote</span>
+          <span class="tag" style="color:var(--purple);border-color:rgba(170,68,255,0.4);background:rgba(170,68,255,0.08)">Ketamina</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2 reveal" style="margin-top:1.4rem">
+      <!-- Opioides -->
+      <div class="tipo-card" style="border-color:rgba(255,80,80,0.2)">
+        <span class="t-icon">💉</span>
+        <h3 style="color:#ff6644">OPIOIDES</h3>
+        <p>Derivados del opio. Potentes analgésicos que generan adicción devastadora. El fentanilo puede matar con cantidades invisibles al ojo humano.</p>
+        <div class="tags">
+          <span class="tag" style="color:#ff6644;border-color:rgba(255,80,80,0.4);background:rgba(255,80,80,0.08)">Morfina</span>
+          <span class="tag" style="color:#ff6644;border-color:rgba(255,80,80,0.4);background:rgba(255,80,80,0.08)">Heroína</span>
+          <span class="tag" style="color:#ff6644;border-color:rgba(255,80,80,0.4);background:rgba(255,80,80,0.08)">Fentanilo</span>
+          <span class="tag" style="color:#ff6644;border-color:rgba(255,80,80,0.4);background:rgba(255,80,80,0.08)">Codeína</span>
+        </div>
+      </div>
+
+      <!-- Cannabinoides -->
+      <div class="tipo-card" style="border-color:rgba(0,200,100,0.2)">
+        <span class="t-icon">🌿</span>
+        <h3 style="color:#00cc66">CANNABINOIDES</h3>
+        <p>Actúan sobre el sistema endocannabinoide. Alteran la memoria, el tiempo y la percepción. Especialmente dañinos en cerebros en desarrollo (menores de 25 años).</p>
+        <div class="tags">
+          <span class="tag" style="color:#00cc66;border-color:rgba(0,200,100,0.4);background:rgba(0,200,100,0.08)">Marihuana</span>
+          <span class="tag" style="color:#00cc66;border-color:rgba(0,200,100,0.4);background:rgba(0,200,100,0.08)">Hachís</span>
+          <span class="tag" style="color:#00cc66;border-color:rgba(0,200,100,0.4);background:rgba(0,200,100,0.08)">THC sintético</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.73rem;opacity:0.35;text-align:center;margin-top:1.5rem">
+      * Algunas sustancias tienen usos médicos legítimos bajo estricta supervisión profesional.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CARACTERÍSTICAS — BLACK CLOVER                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="caract">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--gold)">BLACK CLOVER · GRIMORIO DE LA VERDAD</p>
+      <h2 class="sec-title text-3d-gold">CARACTERÍSTICAS<br>DE LAS DROGAS</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <!-- Asta-inspired SVG -->
+    <div class="char-section reveal">
+      <svg class="anime-char" width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="color:var(--gold)">
+        <!-- Hair -->
+        <path d="M54,30 Q50,10 65,8 Q75,5 80,12 Q85,5 95,8 Q110,10 106,30" fill="#ffd700"/>
+        <!-- Head -->
+        <ellipse cx="80" cy="48" rx="27" ry="28" fill="#ffd700" opacity="0.85"/>
+        <!-- Headband -->
+        <rect x="53" y="30" width="54" height="8" rx="4" fill="#cc9900"/>
+        <!-- Eyes determined -->
+        <rect x="65" y="43" width="10" height="8" rx="2" fill="#332200"/>
+        <rect x="85" y="43" width="10" height="8" rx="2" fill="#332200"/>
+        <!-- Grimoire glow -->
+        <rect x="55" y="100" width="50" height="65" rx="6" fill="#cc9900" opacity="0.6"/>
+        <rect x="58" y="103" width="44" height="59" rx="4" fill="#ffcc00" opacity="0.4"/>
+        <text x="80" y="138" text-anchor="middle" font-size="20" fill="#fff" opacity="0.7">♣</text>
+        <!-- Body -->
+        <path d="M53,76 Q38,95 33,148 L127,148 Q122,95 107,76 Q96,88 80,86 Q64,88 53,76Z" fill="#1a1a33" opacity="0.8"/>
+        <!-- Cape -->
+        <path d="M33,148 Q20,170 25,195 L55,195 L70,160 L55,148Z" fill="#2a2a44" opacity="0.6"/>
+        <path d="M127,148 Q140,170 135,195 L105,195 L90,160 L105,148Z" fill="#2a2a44" opacity="0.6"/>
+        <!-- Magic aura -->
+        <circle cx="80" cy="130" r="70" fill="none" stroke="#ffd700" stroke-width="2" opacity="0.2" stroke-dasharray="8 6"/>
+      </svg>
+    </div>
+
+    <div class="quote reveal">
+      <em>"Nadie es más poderoso que quien conoce sus debilidades y elige no rendirse jamás."</em>
+      <small>— Inspirado en Asta · Black Clover</small>
+    </div>
+
+    <div class="g2">
+      <!-- Físicos -->
+      <div class="reveal">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:2px;color:var(--gold);margin-bottom:1.4rem">
+          ⚔️ EFECTOS FÍSICOS
+        </h3>
+
+        <div class="feat-row">
+          <span class="f-icon">❤️</span>
+          <div>
+            <h4>CARDIOVASCULARES</h4>
+            <p>Aumento del ritmo cardíaco, hipertensión arterial severa, riesgo de infarto y accidente cerebrovascular incluso en jóvenes de 20 años.</p>
+          </div>
+        </div>
+
+        <div class="feat-row">
+          <span class="f-icon">🫁</span>
+          <div>
+            <h4>RESPIRATORIOS</h4>
+            <p>Daño pulmonar permanente, reducción de capacidad pulmonar, depresión respiratoria que puede ser fatal durante el sueño.</p>
+          </div>
+        </div>
+
+        <div class="feat-row">
+          <span class="f-icon">🦴</span>
+          <div>
+            <h4>DETERIORO FÍSICO</h4>
+            <p>Pérdida de peso extrema, destrucción dental (metanfetamina), envejecimiento acelerado, malnutrición y colapso orgánico.</p>
+          </div>
+        </div>
+
+        <div class="feat-row">
+          <span class="f-icon">🛡️</span>
+          <div>
+            <h4>SISTEMA INMUNE</h4>
+            <p>Las defensas del cuerpo colapsan, facilitando enfermedades graves, infecciones oportunistas y complicaciones fatales.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Psicológicos -->
+      <div class="reveal">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:2px;color:var(--gold);margin-bottom:1.4rem">
+          🧠 EFECTOS PSICOLÓGICOS
+        </h3>
+
+        <div class="feat-row" style="border-color:rgba(255,215,0,0.15)">
+          <span class="f-icon">😰</span>
+          <div>
+            <h4>ANSIEDAD Y PÁNICO</h4>
+            <p>Crisis de ansiedad severas, ataques de pánico, paranoia intensa y miedo irracional constante que no desaparece sin consumir.</p>
+          </div>
+        </div>
+
+        <div class="feat-row" style="border-color:rgba(255,215,0,0.15)">
+          <span class="f-icon">👻</span>
+          <div>
+            <h4>PSICOSIS</h4>
+            <p>Alucinaciones visuales y auditivas, delirios y pérdida de contacto con la realidad. Puede ser permanente con uso crónico.</p>
+          </div>
+        </div>
+
+        <div class="feat-row" style="border-color:rgba(255,215,0,0.15)">
+          <span class="f-icon">😔</span>
+          <div>
+            <h4>DEPRESIÓN SEVERA</h4>
+            <p>El "bajón" post-consumo provoca depresión profunda y anhedonia —incapacidad de sentir placer por ninguna otra cosa—.</p>
+          </div>
+        </div>
+
+        <div class="feat-row" style="border-color:rgba(255,215,0,0.15)">
+          <span class="f-icon">🔒</span>
+          <div>
+            <h4>ADICCIÓN</h4>
+            <p>El cerebro queda "secuestrado": compulsión incontrolable de consumir a pesar de las consecuencias destructivas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PELIGROS — KIMETSU NO YAIBA                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="peligros">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:#ff6b6b">KIMETSU NO YAIBA · RESPIRACIÓN DEL PELIGRO</p>
+      <h2 class="sec-title text-3d-red">LOS PELIGROS<br>REALES</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <!-- Tanjiro-inspired SVG -->
+    <div class="char-section reveal">
+      <svg class="anime-char" width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="color:var(--red-kny)">
+        <!-- Hanafuda earrings -->
+        <ellipse cx="52" cy="55" rx="6" ry="9" fill="#cc0022" opacity="0.8"/>
+        <ellipse cx="108" cy="55" rx="6" ry="9" fill="#cc0022" opacity="0.8"/>
+        <!-- Head -->
+        <ellipse cx="80" cy="48" rx="28" ry="30" fill="#cc0022" opacity="0.8"/>
+        <!-- Hair dark -->
+        <path d="M52,30 Q55,12 80,10 Q105,12 108,30 Q100,25 85,28 Q80,26 75,28 Q60,25 52,30Z" fill="#330000"/>
+        <!-- Scar -->
+        <path d="M68,35 Q74,38 78,36" stroke="#ff6644" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Eyes -->
+        <ellipse cx="68" cy="48" rx="5" ry="5.5" fill="#220000"/>
+        <ellipse cx="92" cy="48" rx="5" ry="5.5" fill="#220000"/>
+        <circle cx="69" cy="47" r="2" fill="#cc0022"/>
+        <circle cx="93" cy="47" r="2" fill="#cc0022"/>
+        <!-- Body haori -->
+        <path d="M52,78 Q36,100 30,155 L130,155 Q124,100 108,78 Q96,90 80,88 Q64,90 52,78Z" fill="#1a0505" opacity="0.8"/>
+        <!-- Haori pattern -->
+        <path d="M52,78 L64,155 L80,150 L96,155 L108,78 Q96,90 80,88 Q64,90 52,78Z"
+              fill="none" stroke="#cc0022" stroke-width="1" opacity="0.4" stroke-dasharray="4 3"/>
+        <!-- Sword water waves -->
+        <path d="M100,100 Q115,90 125,100 Q135,110 140,95" stroke="#00ccaa" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M108,115 Q120,108 130,118 Q138,125 143,112" stroke="#00ccaa" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <!-- Aura -->
+        <ellipse cx="80" cy="120" r="75" fill="none" stroke="#cc0022" stroke-width="2" opacity="0.18" stroke-dasharray="6 5"/>
+      </svg>
+    </div>
+
+    <div class="quote reveal">
+      <em>"Los demonios que más daño hacen no son los que se ven con los ojos, sino los que se meten dentro de la mente."</em>
+      <small>— Inspirado en Tanjiro Kamado · Kimetsu no Yaiba</small>
+    </div>
+
+    <div class="g3 reveal">
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO EXTREMO</span>
+        <span class="d-icon">☠️</span>
+        <h3>SOBREDOSIS</h3>
+        <p>Una sola sobredosis puede ser mortal. El fentanilo es 100× más potente que la morfina y puede matar con cantidades invisibles a simple vista.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="100%"></div></div>
+          <span class="hp-label">RIESGO LETAL: MÁXIMO</span>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO CRÍTICO</span>
+        <span class="d-icon">🧩</span>
+        <h3>DAÑO CEREBRAL</h3>
+        <p>El cerebro en desarrollo (hasta los 25 años) es especialmente vulnerable. El daño puede ser irreversible y afectar la inteligencia para siempre.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="90%"></div></div>
+          <span class="hp-label">DAÑO CEREBRAL: CRÍTICO</span>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO LEGAL</span>
+        <span class="d-icon">🔒</span>
+        <h3>CONSECUENCIAS LEGALES</h3>
+        <p>Posesión, tráfico y producción son delitos graves. Una sola detención puede cerrar las puertas del futuro definitivamente.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="80%"></div></div>
+          <span class="hp-label">RIESGO LEGAL: SEVERO</span>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO SOCIAL</span>
+        <span class="d-icon">👨‍👩‍👧‍👦</span>
+        <h3>DESTRUCCIÓN FAMILIAR</h3>
+        <p>La adicción rompe familias, destruye relaciones de confianza y encierra al adicto en un ciclo de mentiras, culpa y dolor compartido.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="92%"></div></div>
+          <span class="hp-label">IMPACTO FAMILIAR: DEVASTADOR</span>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO ECONÓMICO</span>
+        <span class="d-icon">💸</span>
+        <h3>RUINA ECONÓMICA</h3>
+        <p>La adicción consume todo el dinero disponible. Las personas pierden empleos, hogares y terminan en situación de calle.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="78%"></div></div>
+          <span class="hp-label">IMPACTO ECONÓMICO: TOTAL</span>
+        </div>
+      </div>
+
+      <div class="danger-card">
+        <span class="d-badge">PELIGRO ESCOLAR</span>
+        <span class="d-icon">📚</span>
+        <h3>FRACASO ESCOLAR</h3>
+        <p>El consumo en jóvenes arruina el rendimiento académico, destruye la motivación y cierra puertas al futuro profesional para siempre.</p>
+        <div class="hp-wrap">
+          <div class="hp-bar"><div class="hp-fill red" data-w="87%"></div></div>
+          <span class="hp-label">IMPACTO ESCOLAR: GRAVE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- DATOS Y ESTADÍSTICAS                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="datos">
+  <div class="halftone"></div>
+
+  <!-- Mascota 3: remando en bote → navegando entre datos y estadísticas -->
+  <img src="img/mascota3.png" class="mascota mascota-section-left" alt="Mascota navegando entre estadísticas">
+
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label">DATOS REALES · ESTADÍSTICAS MUNDIALES</p>
+      <h2 class="sec-title">LOS NÚMEROS<br><span style="color:var(--red-kny)">NO MIENTEN</span></h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--red-kny),transparent)"></div>
+    </div>
+
+    <div class="g4 reveal">
+      <div class="stat-box glow-r">
+        <div class="stat-num" style="color:var(--red-kny)">600K</div>
+        <div class="stat-lbl">muertes anuales relacionadas a drogas en el mundo</div>
+      </div>
+      <div class="stat-box glow-o">
+        <div class="stat-num" style="color:var(--orange)">14</div>
+        <div class="stat-lbl">años: edad promedio del primer consumo en México</div>
+      </div>
+      <div class="stat-box glow-d">
+        <div class="stat-num" style="color:var(--gold)">1 de 5</div>
+        <div class="stat-lbl">jóvenes ha probado drogas antes de cumplir 18 años</div>
+      </div>
+      <div class="stat-box glow-g">
+        <div class="stat-num" style="color:var(--green)">90%</div>
+        <div class="stat-lbl">de las adicciones comenzaron siendo adolescentes</div>
+      </div>
+    </div>
+
+    <div class="neon-div"></div>
+
+    <!-- Timeline -->
+    <div class="reveal">
+      <h3 style="font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:var(--gold);margin-bottom:2rem">⏱️ LA TRAMPA DEL TIEMPO</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--green)"></div>
+          <h4 style="color:var(--green)">PRIMERA VEZ</h4>
+          <p>El cerebro registra un pico masivo de dopamina —mucho mayor que cualquier placer natural—. Se forma una "memoria" que el cerebro buscará repetir desesperadamente.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--orange)"></div>
+          <h4 style="color:var(--orange)">SEMANAS / MESES</h4>
+          <p>La tolerancia aumenta. Se necesita más cantidad para sentir lo mismo. El cerebro comienza a cambiar su química de forma permanente y silenciosa.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#ff6600"></div>
+          <h4 style="color:#ff6600">DEPENDENCIA</h4>
+          <p>El cuerpo "necesita" la droga para funcionar. Sin ella aparece el síndrome de abstinencia: dolor extremo, convulsiones, sudoración, psicosis y náuseas.</p>
+        </div>
+        <div class="tl-item" style="margin-bottom:0">
+          <div class="tl-dot" style="background:var(--red-kny)"></div>
+          <h4 style="color:var(--red-kny)">ADICCIÓN CRÓNICA</h4>
+          <p>La vida entera gira alrededor de conseguir y consumir. Familia, trabajo, salud, sueños y futuro: todo se pierde en el camino de la adicción.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- RECURSOS Y APOYO                                -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="recursos">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--teal-kny)">RECURSOS · INFORMACIÓN Y APOYO</p>
+      <h2 class="sec-title" style="color:var(--teal-kny)">RECURSOS<br>Y AYUDA</h2>
+      <div class="sec-bar" style="background:linear-gradient(90deg,var(--teal-kny),transparent)"></div>
+    </div>
+
+    <!-- Video educativo -->
+    <div class="reveal" style="margin-bottom:2.5rem">
+      <h3 style="font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:2px;margin-bottom:1rem;color:var(--teal-kny)">🎬 VIDEO EDUCATIVO</h3>
+      <div class="video-wrap">
+        <video controls preload="metadata" style="width:100%;height:100%;display:block;object-fit:contain;background:#000">
+          <source src="Video/video-educativo.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+      </div>
+    </div>
+
+    <!-- Infografías -->
+    <div class="g2 reveal" style="margin-bottom:2.5rem">
+      <div class="card" style="border-color:rgba(0,204,170,0.15)">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:1rem;color:var(--teal-kny)">🚩 SEÑALES DE ALERTA</h3>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15)">
+          <span class="f-icon">😶</span>
+          <div><h4 style="color:var(--teal-kny)">Cambios de ánimo</h4><p>Irritabilidad repentina, tristeza o euforia sin motivo aparente.</p></div>
+        </div>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15)">
+          <span class="f-icon">👥</span>
+          <div><h4 style="color:var(--teal-kny)">Aislamiento</h4><p>Se aleja de amigos y familia, cambia repentinamente su círculo social.</p></div>
+        </div>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15);margin-bottom:0">
+          <span class="f-icon">📉</span>
+          <div><h4 style="color:var(--teal-kny)">Bajo rendimiento</h4><p>Calificaciones que caen, faltas frecuentes, pérdida de interés escolar.</p></div>
+        </div>
+      </div>
+
+      <div class="card" style="border-color:rgba(0,204,170,0.15)">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:1rem;color:var(--teal-kny)">🤝 ¿CÓMO AYUDAR?</h3>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15)">
+          <span class="f-icon">👂</span>
+          <div><h4 style="color:var(--teal-kny)">Escucha sin juzgar</h4><p>Habla con calma, sin sermones. Que sienta que no está solo.</p></div>
+        </div>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15)">
+          <span class="f-icon">📞</span>
+          <div><h4 style="color:var(--teal-kny)">Busca ayuda profesional</h4><p>Acompáñalo a contactar una línea de ayuda o un especialista.</p></div>
+        </div>
+        <div class="feat-row" style="border-color:rgba(0,204,170,0.15);margin-bottom:0">
+          <span class="f-icon">💚</span>
+          <div><h4 style="color:var(--teal-kny)">No lo abandones</h4><p>La recuperación es un proceso largo: el apoyo constante salva vidas.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encuesta interactiva -->
+    <div class="reveal">
+      <h3 style="font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:2px;margin-bottom:1rem;color:var(--teal-kny)">📊 ENCUESTA RÁPIDA</h3>
+      <div class="card" style="border-color:rgba(0,204,170,0.15);max-width:640px">
+        <p style="margin-bottom:1.2rem;opacity:0.85">¿Qué tan informado te sientes sobre los riesgos de las drogas?</p>
+        <form id="poll-form">
+          <label class="poll-option"><input type="radio" name="poll" value="nada" required> Nada informado</label>
+          <label class="poll-option"><input type="radio" name="poll" value="poco"> Poco informado</label>
+          <label class="poll-option"><input type="radio" name="poll" value="algo"> Algo informado</label>
+          <label class="poll-option"><input type="radio" name="poll" value="mucho"> Muy informado</label>
+          <button type="submit" class="btn-submit" style="margin-top:0.8rem">Enviar respuesta</button>
+        </form>
+        <div class="poll-results" id="poll-results">
+          <p style="font-size:0.8rem;opacity:0.6;margin-bottom:0.8rem">Resultados acumulados (almacenados en este dispositivo):</p>
+          <div id="poll-bars"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CONTACTO                                        -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="contacto">
+  <div class="halftone"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <p class="sec-label" style="color:var(--green)">CONTÁCTANOS</p>
+      <h2 class="sec-title text-3d-green">HABLEMOS</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <div class="g2">
+      <!-- Formulario -->
+      <div class="card reveal" style="border-color:rgba(0,255,136,0.12)">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:1.2rem;color:var(--green)">✉️ ENVÍANOS UN MENSAJE</h3>
+        <form id="contact-form" class="form-grid" novalidate>
+          <div class="form-group">
+            <label for="cf-nombre">Nombre</label>
+            <input type="text" id="cf-nombre" name="nombre" required minlength="2" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Correo electrónico</label>
+            <input type="email" id="cf-email" name="email" required placeholder="tu@correo.com">
+          </div>
+          <div class="form-group">
+            <label for="cf-asunto">Motivo</label>
+            <select id="cf-asunto" name="asunto" required>
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="informacion">Quiero más información</option>
+              <option value="ayuda">Necesito ayuda</option>
+              <option value="comentario">Comentario sobre el sitio</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-mensaje">Mensaje</label>
+            <textarea id="cf-mensaje" name="mensaje" required minlength="10" placeholder="Escribe tu mensaje..."></textarea>
+          </div>
+          <label class="form-check">
+            <input type="checkbox" id="cf-privacidad" name="privacidad" required>
+            Acepto que mis datos se usen únicamente para responder este mensaje.
+          </label>
+          <button type="submit" class="btn-submit">Enviar mensaje</button>
+          <p class="form-msg" id="cf-msg"></p>
+        </form>
+      </div>
+
+      <!-- Equipo y cronograma -->
+      <div class="reveal">
+        <h3 style="font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:1.2rem;color:var(--green)">👥 EQUIPO DEL PROYECTO</h3>
+        <div class="g2" style="gap:1rem;margin-bottom:2rem">
+          <div class="card team-card" style="border-color:rgba(0,255,136,0.1)">
+            <div class="team-role">🎨 Diseño</div>
+            <div class="team-name">Santiago Jesús Salgado Martínez</div>
+          </div>
+          <div class="card team-card" style="border-color:rgba(0,255,136,0.1)">
+            <div class="team-role">💻 Programación</div>
+            <div class="team-name">Oscar Daniel Segundo Ausencio</div>
+          </div>
+          <div class="card team-card" style="border-color:rgba(0,255,136,0.1)">
+            <div class="team-role">📝 Contenido</div>
+            <div class="team-name">Abraham Mendoza Castillejo</div>
+          </div>
+          <div class="card team-card" style="border-color:rgba(0,255,136,0.1)">
+            <div class="team-role">🧪 Pruebas</div>
+            <div class="team-name">Alan Jesús Peña Flores</div>
+          </div>
+        </div>
+
+        <h3 style="font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:1.2rem;color:var(--green)">🗓️ CRONOGRAMA</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--green)"></div>
+            <h4 style="color:var(--green)">Investigación y planeación</h4>
+            <p>Semana 1</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--orange)"></div>
+            <h4 style="color:var(--orange)">Diseño y contenido</h4>
+            <p>Semana 2</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--gold)"></div>
+            <h4 style="color:var(--gold)">Programación</h4>
+            <p>Semana 3</p>
+          </div>
+          <div class="tl-item" style="margin-bottom:0">
+            <div class="tl-dot" style="background:var(--red-kny)"></div>
+            <h4 style="color:var(--red-kny)">Pruebas y entrega final</h4>
+            <p>Semana 4</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CTA FINAL                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="final">
+  <div class="halftone"></div>
+  <!-- Giant kanji watermark -->
+  <span style="position:absolute;font-size:28rem;opacity:0.018;font-family:serif;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;z-index:0">英雄</span>
+
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+
+    <!-- Mascota 4: en la cima de la montaña con bandera → ¡lo lograste! -->
+    <img src="img/mascota4.png" class="mascota mascota-final reveal" alt="Mascota en la cima conquistando el conocimiento">
+
+    <div class="reveal">
+      <p class="sec-label">EL MENSAJE FINAL</p>
+      <h2 class="big-title">
+        SÉ EL<br>
+        <span style="color:var(--green)">HÉROE</span><br>
+        DE TU<br>
+        <span style="color:var(--orange)">HISTORIA</span>
+      </h2>
+    </div>
+
+    <p class="reveal" style="max-width:700px;margin:2rem auto;font-size:1.15rem;line-height:1.9;opacity:0.85">
+      Deku nunca tuvo Quirk y aun así eligió ser el símbolo de la paz.<br>
+      Asta nació sin magia pero nunca dejó de luchar.<br>
+      Goku encontró su verdadero poder en el esfuerzo honesto.<br>
+      Tanjiro venció a los demonios reales con determinación y amor.<br><br>
+      <strong>Las drogas no te dan poder — te roban la posibilidad de descubrir hasta dónde puedes llegar por ti mismo.</strong>
+    </p>
+
+    <div class="anime-pills reveal">
+      <span class="pill pill-g">⚡ PLUS ULTRA</span>
+      <span class="pill pill-o">🐉 PODER REAL</span>
+      <span class="pill pill-d">♣ VERDADERA MAGIA</span>
+      <span class="pill pill-t">🗡️ CORTA LAS CADENAS</span>
+    </div>
+
+    <div class="help-box reveal">
+      <h3>¿NECESITAS AYUDA?</h3>
+      <p>
+        Si tú o alguien que conoces necesita apoyo:<br>
+        <strong>CONADIC (México):</strong> 800 911 2000<br>
+        <strong>Línea de la Vida:</strong> 800 290 0024<br>
+        <strong>CIJ — Centros de Integración Juvenil:</strong> 800 911 2000<br>
+        <span style="opacity:0.5;font-size:0.82rem;display:block;margin-top:0.5rem">Servicio gratuito, confidencial, disponible 24/7</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="f-logo">🦦 HERO SIN DROGAS</div>
+  <p>
+    Campaña educativa de concientización sobre el uso y abuso de sustancias.<br>
+    Creada para conectar con las nuevas generaciones a través del lenguaje del anime.<br><br>
+    <span style="font-size:0.75rem">
+      Los personajes de anime son propiedad de sus respectivos autores y estudios.<br>
+      My Hero Academia © Kōhei Horikoshi &nbsp;|&nbsp; Dragon Ball © Akira Toriyama &nbsp;|&nbsp; Black Clover © Yūki Tabata &nbsp;|&nbsp; Kimetsu no Yaiba © Koyoharu Gotouge<br>
+      Esta es una campaña educativa sin fines de lucro.
+    </span>
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCRIPTS                                        -->
+<!-- ═══════════════════════════════════════════════ -->
+<script>
+  /* ── THREE.JS PARTICLE BACKGROUND ── */
+  (function () {
+    const canvas   = document.getElementById('canvas-bg');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene  = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 55;
+
+    /* colour palette matching the 4 animes */
+    const palette = [
+      new THREE.Color('#00e676'),
+      new THREE.Color('#ff9800'),
+      new THREE.Color('#29b6f6'),
+      new THREE.Color('#ffd54f'),
+      new THREE.Color('#ef5350'),
+      new THREE.Color('#26c6da'),
+      new THREE.Color('#ab47bc'),
+      new THREE.Color('#00c853'),
+    ];
+
+    const N = 2400;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+
+    for (let i = 0; i < N; i++) {
+      pos[i*3]   = (Math.random() - 0.5) * 220;
+      pos[i*3+1] = (Math.random() - 0.5) * 220;
+      pos[i*3+2] = (Math.random() - 0.5) * 110;
+      const c = palette[i % palette.length];
+      col[i*3]   = c.r;
+      col[i*3+1] = c.g;
+      col[i*3+2] = c.b;
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+
+    const mat = new THREE.PointsMaterial({
+      size: 0.45,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.55,
+      sizeAttenuation: true,
+    });
+
+    const pts = new THREE.Points(geo, mat);
+    scene.add(pts);
+
+    /* second, slower, larger particles */
+    const N2 = 400;
+    const pos2 = new Float32Array(N2 * 3);
+    for (let i = 0; i < N2; i++) {
+      pos2[i*3]   = (Math.random() - 0.5) * 280;
+      pos2[i*3+1] = (Math.random() - 0.5) * 280;
+      pos2[i*3+2] = (Math.random() - 0.5) * 80;
+    }
+    const geo2 = new THREE.BufferGeometry();
+    geo2.setAttribute('position', new THREE.BufferAttribute(pos2, 3));
+    const mat2 = new THREE.PointsMaterial({
+      size: 1.2, color: 0x00e676, transparent: true, opacity: 0.15, sizeAttenuation: true
+    });
+    const pts2 = new THREE.Points(geo2, mat2);
+    scene.add(pts2);
+
+    let mx = 0, my = 0;
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    let t = 0;
+    function loop() {
+      requestAnimationFrame(loop);
+      t += 0.0006;
+      pts.rotation.y  = t * 0.08 + mx * 0.08;
+      pts.rotation.x  = t * 0.03 + my * 0.04;
+      pts2.rotation.y = -t * 0.04;
+      mat.opacity = 0.45 + Math.sin(t * 3) * 0.08;
+      renderer.render(scene, camera);
+    }
+    loop();
+
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  })();
+
+  /* ── GSAP SCROLL ANIMATIONS ── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Reveal on scroll */
+  document.querySelectorAll('.reveal').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 45 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none reverse',
+        }
+      }
+    );
+  });
+
+  /* Hero entrance */
+  const tl = gsap.timeline({ delay: 0.3 });
+  tl.fromTo('.hero-badge', { opacity: 0, y: -25 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    .fromTo('.hero-title', { opacity: 0, scale: 0.82, rotationX: -25 },
+            { opacity: 1, scale: 1, rotationX: 0, duration: 1.1, ease: 'back.out(1.5)' }, '-=0.3')
+    .fromTo('.hero-sub',   { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+    .fromTo('.btn-cta',    { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.3');
+
+  /* Kanji floating */
+  gsap.to('.kanji', {
+    y: -22,
+    duration: 3.5,
+    ease: 'power1.inOut',
+    yoyo: true,
+    repeat: -1,
+    stagger: 0.8,
+  });
+
+  /* 3D tilt on tipo-cards */
+  document.querySelectorAll('.tipo-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width  / 2;
+      const y = e.clientY - r.top  - r.height / 2;
+      gsap.to(card, {
+        rotationY:  (x / r.width)  * 18,
+        rotationX: -(y / r.height) * 12,
+        duration: 0.3,
+        ease: 'power1.out',
+        transformPerspective: 800,
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.55, ease: 'power2.out' });
+    });
+  });
+
+  /* Danger card mini-shake on hover */
+  document.querySelectorAll('.danger-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      gsap.fromTo(card, { x: -4 }, { x: 4, duration: 0.06, repeat: 5, yoyo: true, ease: 'none' });
+    });
+  });
+
+  /* HP bar fill on scroll */
+  document.querySelectorAll('.hp-fill').forEach(bar => {
+    const target = bar.getAttribute('data-w') || '80%';
+    gsap.to(bar, {
+      width: target,
+      duration: 1.4,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: bar,
+        start: 'top 92%',
+      }
+    });
+  });
+
+  /* Stat boxes pop */
+  document.querySelectorAll('.stat-box').forEach((box, i) => {
+    gsap.fromTo(box,
+      { opacity: 0, scale: 0.85, y: 30 },
+      {
+        opacity: 1, scale: 1, y: 0,
+        duration: 0.6,
+        delay: i * 0.12,
+        ease: 'back.out(1.5)',
+        scrollTrigger: { trigger: box, start: 'top 88%' }
+      }
+    );
+  });
+
+  /* Timeline items stagger */
+  gsap.utils.toArray('.tl-item').forEach((item, i) => {
+    gsap.fromTo(item,
+      { opacity: 0, x: -30 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.6,
+        delay: i * 0.15,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: item, start: 'top 88%' }
+      }
+    );
+  });
+
+  /* Anime character SVGs pulse */
+  gsap.utils.toArray('svg.anime-char').forEach(svg => {
+    gsap.to(svg, {
+      y: -12,
+      duration: 3,
+      ease: 'power1.inOut',
+      yoyo: true,
+      repeat: -1,
+    });
+  });
+
+  /* Nav active link highlight on scroll */
+  const secs = [...document.querySelectorAll('section[id]')];
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 180;
+    secs.forEach(s => {
+      const a = document.querySelector(`nav a[href="#${s.id}"]`);
+      if (!a) return;
+      a.style.color = (y >= s.offsetTop && y < s.offsetTop + s.offsetHeight)
+        ? 'var(--green)' : '';
+    });
+  }, { passive: true });
+
+  /* Smooth scroll for anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  /* ── ENCUESTA — interacción usuario-sistema con "base de datos" local (localStorage) ── */
+  (function () {
+    const form = document.getElementById('poll-form');
+    if (!form) return;
+    const resultsBox = document.getElementById('poll-results');
+    const barsBox = document.getElementById('poll-bars');
+    const labels = { nada: 'Nada informado', poco: 'Poco informado', algo: 'Algo informado', mucho: 'Muy informado' };
+    const colors = { nada: '#ff2244', poco: '#ff6600', algo: '#ffd700', mucho: '#00ff88' };
+
+    function getPollData() {
+      return JSON.parse(localStorage.getItem('encuestaDrogas') || '{"nada":0,"poco":0,"algo":0,"mucho":0}');
+    }
+
+    function renderPoll() {
+      const data = getPollData();
+      const total = Object.values(data).reduce((a, b) => a + b, 0) || 1;
+      barsBox.innerHTML = Object.keys(labels).map(key => {
+        const pct = Math.round((data[key] / total) * 100);
+        return `
+          <div class="poll-row">
+            <div class="poll-row-label"><span>${labels[key]}</span><span>${data[key]} (${pct}%)</span></div>
+            <div class="hp-bar"><div class="hp-fill" style="width:${pct}%;background:${colors[key]}"></div></div>
+          </div>`;
+      }).join('');
+      resultsBox.classList.add('show');
+    }
+
+    if (localStorage.getItem('encuestaDrogas')) renderPoll();
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const choice = form.querySelector('input[name="poll"]:checked');
+      if (!choice) return;
+      const data = getPollData();
+      data[choice.value]++;
+      localStorage.setItem('encuestaDrogas', JSON.stringify(data));
+      renderPoll();
+      form.querySelectorAll('input[name="poll"]').forEach(i => i.disabled = true);
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      btn.textContent = '¡Gracias por tu respuesta!';
+    });
+  })();
+
+  /* ── FORMULARIO DE CONTACTO — validación + "base de datos" local (localStorage) ── */
+  (function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const msg = document.getElementById('cf-msg');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        msg.textContent = 'Por favor completa todos los campos correctamente.';
+        msg.className = 'form-msg err';
+        return;
+      }
+
+      const entry = {
+        nombre: form.nombre.value.trim(),
+        email: form.email.value.trim(),
+        asunto: form.asunto.value,
+        mensaje: form.mensaje.value.trim(),
+        fecha: new Date().toISOString(),
+      };
+
+      const db = JSON.parse(localStorage.getItem('contactosDrogas') || '[]');
+      db.push(entry);
+      localStorage.setItem('contactosDrogas', JSON.stringify(db));
+
+      msg.textContent = `¡Gracias, ${entry.nombre}! Tu mensaje fue recibido.`;
+      msg.className = 'form-msg ok';
+      form.reset();
+    });
+  })();
+</script>
+</body>
+</html>
